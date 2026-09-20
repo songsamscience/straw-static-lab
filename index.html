@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+<!-- 송쌤과학 가상실험실 · 마찰한 두 물체에 작용하는 힘 관찰하기 · v4 (2026-09-20)
+     v3 → v4 : 과학 검수(대전 포화 모형·이론 문구), 회전 궤적·힘 이름표, 관찰 기록표(리포트·학습지 포함), 벽 광원, 버전 표시 -->
 <html lang="ko" data-theme="dark">
 <head>
 <meta charset="UTF-8">
@@ -6,6 +8,7 @@
 <title>송쌤과학 가상실험실 | 마찰한 두 물체에 작용하는 힘 관찰하기</title>
 <meta name="description" content="중학교 과학 [9과14-01] 침핀 받침대 위에서 도는 빨대로 마찰한 두 물체 사이의 전기력을 관찰하고, 전자의 이동과 대전열로 설명하는 가상실험실">
 <meta name="color-scheme" content="dark light">
+<meta name="version" content="v4 (2026-09-20)">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='22' y='46' width='20' height='13' rx='2' fill='%238C5A30'/%3E%3Cpath d='M32 47V27M9 27h46' stroke='%23E0A03A' stroke-width='6' stroke-linecap='round'/%3E%3Ccircle cx='32' cy='23' r='5' fill='%232E6FD0'/%3E%3C/svg%3E">
 
 
@@ -1037,6 +1040,17 @@ details.more p{margin-top:6px}
 @media(max-height:600px) and (min-width:761px){.lesson-banner{bottom:8px;padding:7px 12px}.lesson-banner strong{font-size:15px}.lesson-banner p{display:none}}
 @media(prefers-reduced-motion:reduce){#l-materials .mat-art,.fist-wrap{transition:none!important}}
 
+/* ---- 전하 표시 : 원자핵(+)·전자(−)를 모두 보이고, 짝 잃은 원자핵·옮겨 온 전자에만 고리를 두른다 ---- */
+#l-charge .cl,#l-charge .cr{display:none}
+#l-charge .p.lost .cl,#l-charge .ex .cr{display:inline}
+#l-charge .hop{pointer-events:none}
+.chg-legend{display:flex;flex-wrap:wrap;gap:3px 10px;margin:0;font-size:10.5px;line-height:1.5;color:var(--text-2)}
+.chg-legend span{display:inline-flex;align-items:center;gap:4px;white-space:nowrap}
+.chg-legend i{width:10px;height:10px;border-radius:999px;display:inline-block;box-sizing:border-box}
+.chg-legend .lp{background:var(--pos)} .chg-legend .le{background:var(--neg)}
+.chg-legend .ll{background:var(--pos);box-shadow:0 0 0 1.5px var(--surface-1),0 0 0 2.6px var(--pos);opacity:.9}
+.chg-legend .lr{background:var(--neg);box-shadow:0 0 0 1.5px var(--surface-1),0 0 0 2.6px var(--accent-strong)}
+
 /* ---- 실험 결과 PNG 저장 : 장면 오른쪽 위 모서리 (리모컨·예측 카드와 겹치지 않는 자리) ---- */
 .cam-btn{position:absolute;z-index:14;right:16px;top:16px;display:inline-flex;align-items:center;gap:7px;
   height:40px;padding:0 13px 0 11px;border-radius:12px;background:var(--glass);color:var(--text-1);
@@ -1176,6 +1190,48 @@ details.more p{margin-top:6px}
   .brandblock .chan a{width:42px;flex:0 0 42px}
 }
 
+/* ==========================================================================
+   v4 — 회전 궤적 · 힘 이름표 · 관찰 기록 · 단계 안내 · 버전
+   ========================================================================== */
+#l-trace{pointer-events:none}
+#scene .trace-ghost{stroke:var(--text-3);stroke-width:2.4;stroke-dasharray:4 3;stroke-linecap:round;opacity:.5;fill:none}
+#scene .trace-arc{stroke:var(--accent);stroke-width:1.4;stroke-dasharray:2.4 2;stroke-linecap:round;fill:none;opacity:.95}
+#scene .chipl.force text{fill:var(--force);font-weight:800}
+#scene .chipl.force rect{stroke:var(--force)}
+#scene .chipl.angle text{fill:var(--accent-strong);font-variant-numeric:tabular-nums}
+#scene .chipl.angle rect{stroke:var(--accent)}
+:root[data-theme="light"] #scene .chipl.force text{fill:#6A2F8C}
+:root[data-theme="light"] #scene .chipl.angle text{fill:#7A4E06}
+#rail .obs{gap:6px}
+/* 2단계 안내 문장은 장면 아래 안내 띠가 같은 말을 하므로 리모컨에서는 접는다 — 1366×768에서 관찰 기록 두 줄까지 스크롤 없이 들어가게 */
+#rail #handNote{display:none}
+#rail,#rail[data-step="1"],#rail[data-step="2"]{gap:10px}
+.obs-head{display:flex;align-items:center;justify-content:space-between;gap:6px}
+.obs-head .clabel{margin:0}
+.obs-clear{height:26px;padding:0 8px;font-size:11px;font-weight:600;color:var(--text-3);border-radius:var(--r-1);box-shadow:0 0 0 1px var(--line-1)}
+.obs-clear:disabled{opacity:.4;cursor:not-allowed}
+@media (hover:hover) and (pointer:fine){ .obs-clear:not(:disabled):hover{background:var(--surface-2);color:var(--text-1)} }
+.obs-table{width:100%;border-collapse:collapse;font-size:11px;line-height:1.35;table-layout:fixed}
+.obs-table th,.obs-table td{padding:4px 4px;border-bottom:1px solid var(--line-1);text-align:left;vertical-align:top;overflow-wrap:anywhere}
+.obs-table thead th{font-size:10px;font-weight:600;color:var(--text-3)}
+.obs-table th:nth-child(2),.obs-table td:nth-child(2){width:34px;text-align:center}
+.obs-table td.r{font-weight:700}
+.obs-table td.r.push{color:var(--bad)} .obs-table td.r.pull{color:var(--ok)} .obs-table td.r.ind{color:var(--warn)}
+.obs-table .p{color:var(--pos);font-weight:700}.obs-table .n{color:var(--neg);font-weight:700}.obs-table .z{color:var(--text-3);font-weight:500}
+.obs-table .deg{color:var(--text-2);font-variant-numeric:tabular-nums;font-weight:500;white-space:nowrap}
+.obs-table .obs-poe{font-size:10px;color:var(--text-3);font-weight:500}
+.obs-empty{font-size:11px;color:var(--text-3);line-height:1.5;margin:0}
+.obs-sum{font-size:11px;line-height:1.5;color:var(--text-2);margin:2px 0 0;padding:6px 8px;border-radius:var(--r-1);background:var(--accent-soft);border:1px solid var(--accent)}
+.obs-sum b{color:var(--text-1)}
+/* 문지른 뒤 아직 2단계를 보지 않았으면 2단계 단추가 잠시 눈에 띈다 (3번만) */
+@keyframes nudge{0%,100%{box-shadow:0 0 0 1px var(--line-1)}50%{box-shadow:0 0 0 2px var(--accent),0 0 0 6px var(--accent-soft)}}
+#rail .stepb[data-nudge="1"]{animation:nudge 1.3s ease-in-out 3}
+@media(prefers-reduced-motion:reduce){#rail .stepb[data-nudge="1"]{animation:none;box-shadow:0 0 0 2px var(--accent)}}
+.ver{font-size:11.5px;color:var(--text-3);font-variant-numeric:tabular-nums}
+#printview .pobs{width:100%;border-collapse:collapse;font-size:10pt;margin:0 0 3mm}
+#printview .pobs th,#printview .pobs td{border:0.6pt solid #666;padding:1.6mm 2mm;text-align:left;vertical-align:top}
+#printview .pobs th{background:#eee;font-weight:700}
+#printview .pobs td.blank{height:9mm}
 </style>
 </head>
 <body>
@@ -1306,6 +1362,7 @@ details.more p{margin-top:6px}
 <button type="button" class="rub-card" data-select-target="A"><strong>빨대 ㉠ · 받침대 위</strong><span>중성 · 문지르기 전</span></button>
 <button type="button" class="rub-card" data-select-target="B"><strong>빨대 ㉡ · 손에 들 빨대</strong><span>중성 · 문지르기 전</span></button>
 </div>
+<p class="chg-legend" id="chgLegend"><span><i class="lp"></i>원자핵(+)</span><span><i class="le"></i>전자(−)</span><span><i class="ll"></i>전자를 잃은 원자핵</span><span><i class="lr"></i>옮겨 온 전자</span></p>
 
 
 
@@ -1349,13 +1406,19 @@ details.more p{margin-top:6px}
       <p class="rubnote" id="handNote">물체를 드래그하거나 화살표 키로 빨대 ㉠의 끝에 가까이 가져가 보세요.</p>
     </section>
 
+    <!-- ── 관찰 기록 : 빨대 ㉠이 움직여 멈출 때마다 한 줄 (교과서 결과표와 같은 꼴) ── -->
+    <section class="rgrp obs" data-s="2" data-a="obs" id="obsBox" aria-label="관찰 기록">
+      <div class="obs-head"><span class="clabel">관찰 기록 · 빨대 ㉠의 움직임</span><button type="button" class="obs-clear" id="obsClear" disabled aria-label="관찰 기록 지우기">지우기</button></div>
+      <div id="obsList" aria-live="polite"></div>
+    </section>
+
     <section class="rgrp" data-s="2" data-a="back">
       <button class="btn ghost" id="goStep1">← 1단계에서 더 문지르기</button>
     </section>
 
 
 
-  </aside><details class="bench-options" id="benchOptions"><summary>상세 기록 · 표시 설정 · 대전열</summary><div class="options-content"><p style="font-size:11px;color:var(--text-2)">맨손 접촉은 사람이 지구와 연결된 상태를 가정한 중성화 모형입니다. 실제 절연체는 접촉 부위부터 전하가 줄어들며, 재질·습도에 따라 결과가 달라집니다. 비닐은 PVC, 빨대는 PP로 가정합니다. 전하 기호는 설명용입니다. <a href="https://openstax.org/books/college-physics-2e/pages/18-2-conductors-and-insulators" target="_blank" rel="noopener noreferrer">관련 원리</a></p><p class="rubnote" id="rubCount">아직 문지르지 않았어요.</p>    <section class="rgrp tglrow">
+  </aside><details class="bench-options" id="benchOptions"><summary>상세 기록 · 표시 설정 · 대전열 · 초기화</summary><div class="options-content"><p style="font-size:11px;color:var(--text-2)">맨손 접촉은 사람이 지구와 연결된 상태를 가정한 중성화 모형입니다. 실제 절연체는 접촉 부위부터 전하가 줄어들며, 재질·습도에 따라 결과가 달라집니다. 비닐은 PVC, 빨대는 PP로 가정합니다. 전하 기호는 설명용입니다. <a href="https://openstax.org/books/college-physics-2e/pages/18-2-conductors-and-insulators" target="_blank" rel="noopener noreferrer">관련 원리</a></p><p class="rubnote" id="rubCount">아직 문지르지 않았어요.</p>    <section class="rgrp tglrow">
       <button class="chip" id="tglForce" aria-pressed="true">
         <span class="mk" aria-hidden="true"></span>힘 화살표
       </button>
@@ -1414,6 +1477,8 @@ details.more p{margin-top:6px}
         <g id="l-shadow"></g>
         <!-- 3. 뒤쪽 구조물 : 받침대 + 지지대 -->
         <g id="l-stand"></g>
+        <!-- 3.5. 회전 궤적 : 처음 자리(점선)와 돌아간 각도(호) — 장면 자체가 말하는 상태값 -->
+        <g id="l-trace"></g>
         <!-- 4. 손에 든 물체 (+ 손) -->
         <g id="l-hand" tabindex="0" role="button" style="cursor:grab"
            aria-label="손에 든 물체 — 드래그하거나 화살표 키로 옮기기"></g>
@@ -1562,6 +1627,7 @@ function kill(key){
 }
 
 /* ---------- 1. 저장 : 기기 설정 / 학습 기록 분리 (§11) ---------- */
+const APP_VERSION='v4', APP_DATE='2026-09-20';   /* 파일 머리의 주석·meta와 같이 올린다 */
 const PFX='ssv-fric-';
 const LS={
   carry:false, sid:'',
@@ -1580,7 +1646,7 @@ const LS={
   prefs(d){ try{ const r=localStorage.getItem(PFX+'prefs'); return r?JSON.parse(r):d }catch(e){ return d } },
   setPrefs(v){ try{ localStorage.setItem(PFX+'prefs',JSON.stringify(v)); }catch(e){} },
   wipe(){
-    const names=['answers','revisions','locks','hints','poe','sid','carry'];
+    const names=['answers','revisions','locks','hints','poe','obs','sid','carry'];
     names.forEach(n=>{
       try{ sessionStorage.removeItem(PFX+n) }catch(e){}
       try{ localStorage.removeItem(PFX+n) }catch(e){}
@@ -1848,6 +1914,8 @@ const S={
   paused:false,
   showForce:true, showCharge:true,
   poeAsked:{}, poeCount:0, poeLog:[],
+  obs:[],                 /* 관찰 기록 : 2단계에서 빨대 ㉠이 움직여 멈춘 결과 한 줄씩 */
+  visited2:false,         /* 2단계를 한 번이라도 열었는가 (1단계 뒤 2단계 단추 안내용) */
   sid:'', name:'', carry:false
 };
 
@@ -1945,13 +2013,16 @@ function buildStatic(){
   L.bg.innerHTML=
     '<defs><linearGradient id="mWall" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--wall-1)"/><stop offset="1" stop-color="var(--wall-2)"/></linearGradient>'+
     '<linearGradient id="mDeskBack" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#000" stop-opacity=".34"/><stop offset="1" stop-color="#000" stop-opacity="0"/></linearGradient>'+
-    '<linearGradient id="mShelfSh" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#000" stop-opacity=".26"/><stop offset="1" stop-color="#000" stop-opacity="0"/></linearGradient></defs>'+
+    '<linearGradient id="mShelfSh" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#000" stop-opacity=".26"/><stop offset="1" stop-color="#000" stop-opacity="0"/></linearGradient>'+
+    /* 왼쪽 위 창에서 드는 빛 — UI 그림자·기구 하이라이트와 같은 광원(205°) */
+    '<radialGradient id="mWindow" cx=".16" cy=".02" r=".62"><stop offset="0" stop-color="#FFE3B3" stop-opacity=".2"/><stop offset=".5" stop-color="#FFE3B3" stop-opacity=".06"/><stop offset="1" stop-color="#FFE3B3" stop-opacity="0"/></radialGradient></defs>'+
     '<rect id="wallBg" fill="url(#mWall)"/>'+
+    '<rect id="wallLight" fill="url(#mWindow)"/>'+
     '<path id="deskTop" fill="url(#mDesk)"/>'+
     '<use id="deskImg" href="#asset-desk" opacity=".72"/>'+
     '<rect id="deskBack" fill="url(#mDeskBack)" height="16" y="165"/>'+
     '<path id="deskEdge" fill="none" stroke="var(--line-2)" stroke-width=".8"/>';
-  EL.wallBg=$('#wallBg'); EL.deskTop=$('#deskTop'); EL.deskImg=$('#deskImg');
+  EL.wallBg=$('#wallBg'); EL.wallLight=$('#wallLight'); EL.deskTop=$('#deskTop'); EL.deskImg=$('#deskImg');
   EL.deskBack=$('#deskBack'); EL.deskEdge=$('#deskEdge');
 
   buildShelf();
@@ -1998,8 +2069,18 @@ function buildStatic(){
       ' marker-start="url(#aDim)" marker-end="url(#aDim)"/>'+
     '<g class="chipl small dim" id="dimChip" style="display:none"><rect/><text><tspan class="n"></tspan><tspan class="q"></tspan></text></g>'+
     '<line id="fRod"  stroke="var(--force)" stroke-width="2.3" stroke-linecap="round" marker-end="url(#aForce)"/>'+
-    '<line id="fHeld" stroke="var(--force)" stroke-width="2.3" stroke-linecap="round" marker-end="url(#aForce)"/>';
-  ['dimLine','dimChip','fRod','fHeld'].forEach(k=>EL[k]=$('#'+k));
+    '<line id="fHeld" stroke="var(--force)" stroke-width="2.3" stroke-linecap="round" marker-end="url(#aForce)"/>'+
+    /* 힘의 종류 : 화살표만으로는 '밀어냄·끌어당김'이 읽히지 않는 학생을 위해 한 줄 이름표 */
+    '<g class="chipl small force" id="fChip" style="display:none"><rect/><text><tspan class="n"></tspan><tspan class="q"></tspan></text></g>';
+  ['dimLine','dimChip','fRod','fHeld','fChip'].forEach(k=>EL[k]=$('#'+k));
+
+  /* 회전 궤적 : 처음 자리(점선 빨대) + 돌아간 각도(호 · 각도 이름표). 2단계에서 빨대 ㉠이 돌았을 때만 보인다 */
+  L.trace=$('#l-trace');
+  L.trace.innerHTML=
+    '<line id="trGhost" class="trace-ghost"/>'+
+    '<path id="trArc" class="trace-arc"/>'+
+    '<g class="chipl small angle" id="trChip" style="display:none"><rect/><text><tspan class="n"></tspan><tspan class="q"></tspan></text></g>';
+  ['trGhost','trArc','trChip'].forEach(k=>EL[k]=$('#'+k));
 
   const st=document.createElementNS(SVGNS,'style');
   st.textContent=
@@ -2111,6 +2192,7 @@ function updateScale(){
   const x0=vx-4, x1=vx+vw+4, y0=vy-4, y1=vy+vh+4, H=165;
   EL.wallBg.setAttribute('x',x0.toFixed(1)); EL.wallBg.setAttribute('y',y0.toFixed(1));
   EL.wallBg.setAttribute('width',(x1-x0).toFixed(1)); EL.wallBg.setAttribute('height',Math.max(1,H-y0+1).toFixed(1));
+  ['x','y','width','height'].forEach(a=>EL.wallLight.setAttribute(a,EL.wallBg.getAttribute(a)));
   EL.deskTop.setAttribute('d','M'+x0.toFixed(1)+','+H+' H'+x1.toFixed(1)+' V'+Math.max(y1,H+171).toFixed(1)+' H'+x0.toFixed(1)+' Z');
   EL.deskImg.setAttribute('x',x0.toFixed(1)); EL.deskImg.setAttribute('y',H);
   EL.deskImg.setAttribute('width',(x1-x0).toFixed(1)); EL.deskImg.setAttribute('height',Math.max(171,y1-H).toFixed(1));
@@ -2199,9 +2281,7 @@ function buildRub(){
      '<path d="M0,-6 -22,-6 M0,0 -26,0 M0,6 -20,6" stroke="var(--text-3)"'+
      ' stroke-width="1.4" stroke-linecap="round" fill="none"/></g>';
   /* 전자 : 대전열에서 위쪽 물체 → 아래쪽 물체로 한 방향으로만 건너간다 */
-  h+='<g id="rubE" pointer-events="none">';
-  for(let i=0;i<N_E;i++) h+=chargeGlyph(-1);
-  h+='</g>';
+  h+='<g id="rubE" pointer-events="none"></g>';   /* v3부터 전자는 실제 원자 자리에서 건너간다 (renderCharges) — 장식 점은 두지 않는다 */
   /* 문지르기 버튼 : 주먹이 천을 움켜쥐고 빨대 위를 오간다 */
   h+='<g id="rubActor" pointer-events="none"><g id="rubMove"><g id="rubCloth">'+clothMarkup(S.cloth)+'</g>'+fistMarkup('rubFist')+'</g></g>';
   L.rub.innerHTML=h;
@@ -2247,20 +2327,8 @@ function renderRub(){
     'translate('+x.toFixed(2)+','+cloY.toFixed(2)+') scale('+(v>=0?1:-1)+',1)');
   EL.rubTrail.style.opacity = (0.5*sp).toFixed(2);
 
-  /* 전자 점 : 내놓는 물체 표면에서 받는 물체 표면으로 흘러간다 */
-  const es=EL.rubE.children;
-  if(plan && plan.delta>0 && (rubRunning || sp>0.05)){
-    EL.rubE.style.display='';
-    const fromCloth = plan.donor===S.cloth;
-    const yC=cloY+6, yR=cy-2;
-    const y0=fromCloth?yC:yR, y1=fromCloth?yR:yC;
-    for(let i=0;i<es.length;i++){
-      const q=(phase+i/N_E)%1;
-      es[i].setAttribute('transform',
-        'translate('+(x+(i%3-1)*7.5).toFixed(2)+','+(y0+(y1-y0)*q).toFixed(2)+')');
-      es[i].style.opacity=(Math.sin(q*Math.PI)*0.95).toFixed(2);
-    }
-  } else EL.rubE.style.display='none';
+  /* 전자는 이제 실제 원자 자리에서 한 개씩 건너간다 (renderCharges · chTransfer) — 장식용 흐름 점은 쓰지 않는다 */
+  EL.rubE.style.display='none';
 }
 
 /* --- 전하 기호 : 개수가 바뀔 때만 다시 만든다 --- */
@@ -2270,25 +2338,181 @@ function chargeGlyph(sign){
     '<path d="'+(sign>0?'M-1.9,0 H1.9 M0,-1.9 V1.9':'M-1.9,0 H1.9')+
     '" stroke="#fff" stroke-width="1.15" stroke-linecap="round" fill="none"/></g>';
 }
+/* ==========================================================================
+   전하 표시 — 물체마다 원자핵(+)과 전자(−)를 모두 보인다
+   · 중성 물체에도 (+)와 (−)가 같은 수만큼 짝지어 있다. 대전되면 짝을 잃은 (+)(점선 고리) 또는
+     옮겨 온 (−)(노란 고리)가 드러난다. 원자 수는 교육용 모형 : 물체마다 8.
+   · 전자가 옮겨 갈 때는 한 개씩, 내놓는 물체의 실제 자리에서 받는 물체의 실제 자리로 날아간다
+     (문지를 때 : 천 ↔ 빨대 · 맨손을 댈 때 : 물체 ↔ 손끝).
+   · 2단계에서 대전체가 가까이 오면 원자 속 전자가 살짝 치우친다 (정전기 유도).
+   ========================================================================== */
 let chgSig='';
-function chargeSet(id,q){
-  const n=Math.min(Math.abs(q),8), s=Math.sign(q);
-  let h='<g id="'+id+'">';
-  for(let i=0;i<n;i++) h+=chargeGlyph(s);
-  return h+'</g>';
+const CH={N:8,EX:8,R:2.9,OFF:5.4,SHIFT:4.4};
+const CH_KEYS=['A','B','fur','cotton','pvc'];
+/* 전자를 잃는 순서(짝 번호)와 옮겨 온 전자가 서는 순서 — 문지르는 면·가운데부터 */
+const CH_LO={straw:[3,4,2,5,1,6,0,7], cloth:[5,6,4,7,1,2,0,3]};
+const CH_XO=[3,4,2,5,1,6,0,7];
+const CH_CLOTH={fur:{dx:[-21,-7,7,21],dy:[-12,0]}, cotton:{dx:[-21,-7,7,21],dy:[-11,0]}, pvc:{dx:[-16,-5.3,5.3,16],dy:[-9,-1]}};
+let chHops=[], chPend={A:0,B:0,fur:0,cotton:0,pvc:0}, chRaf=0, chEl=null;
+function chGlyph(sign,cls){
+  const r=CH.R, a=(r*.56).toFixed(2);
+  return '<g class="cg '+cls+'"><circle r="'+r+'" fill="'+(sign>0?'var(--pos)':'var(--neg)')+'" stroke="rgba(0,0,0,.32)" stroke-width=".5"/>'+
+    '<path d="'+(sign>0?'M-'+a+',0H'+a+'M0,-'+a+'V'+a:'M-'+a+',0H'+a)+'" stroke="#fff" stroke-width="1" stroke-linecap="round" fill="none"/>'+
+    (sign>0?'<circle class="cl" r="'+(r+1.3)+'" fill="none" stroke="var(--pos)" stroke-width=".8" stroke-dasharray="1.7 1.2"/>'
+           :'<circle class="cr" r="'+(r+1.3)+'" fill="none" stroke="var(--accent-strong)" stroke-width=".9"/>')+'</g>';
 }
+/* 틀은 한 번만 만든다 — 전하가 바뀌면 보이기·숨기기와 자리만 바꾼다 */
 function buildCharge(){
-  const hk=heldKey();
-  /* 단계마다 화면에 있는 물체가 다르다 :
-     1단계 = 빨대 ㉠ · (대상이면) 빨대 ㉡ · 문지르는 천
-     2단계 = 빨대 ㉠ · 손에 든 물체                              */
-  const qA=S.q.A;
-  const qB = S.step===1 ? S.q.B : (hk?S.q[hk]:0);
-  const qC = S.step===1 ? S.q[S.cloth] : 0;
-  const sig=[S.step,qA,qB,qC,S.hand,S.cloth,S.rubTarget].join(',');
-  if(sig===chgSig) return; chgSig=sig;
-  L.chg.innerHTML=chargeSet('csA',qA)+chargeSet('csB',qB)+chargeSet('csC',qC);
-  EL.csA=$('#csA',L.chg); EL.csB=$('#csB',L.chg); EL.csC=$('#csC',L.chg);
+  if(chEl) return;
+  let h='';
+  for(const k of CH_KEYS){
+    h+='<g class="co" data-k="'+k+'">';
+    for(let i=0;i<CH.N;i++) h+=chGlyph(1,'p');
+    for(let i=0;i<CH.N;i++) h+=chGlyph(-1,'e');
+    for(let i=0;i<CH.EX;i++) h+=chGlyph(-1,'e ex');
+    h+='</g>';
+  }
+  h+='<g class="chop"></g>';
+  L.chg.innerHTML=h;
+  chEl={};
+  for(const k of CH_KEYS){
+    const g=$('.co[data-k="'+k+'"]',L.chg);
+    chEl[k]={g,p:$$('.p',g),e:$$('.e:not(.ex)',g),x:$$('.ex',g)};
+  }
+  chEl.hop=$('.chop',L.chg);
+}
+/* 물체의 지금 모양 : 빨대는 축 위의 점 + 위쪽 법선, 천은 중심 */
+function chFrame(k){
+  if(k==='A'){
+    const a=rodEnd(S.theta,-1), b=rodEnd(S.theta,1);
+    let nx=-(b.sy-a.sy), ny=b.sx-a.sx; const l=Math.hypot(nx,ny)||1; nx/=l; ny/=l; if(ny>0){ nx=-nx; ny=-ny; }
+    return {straw:true, at:s=>{ const p=rodAt(S.theta,s); return {x:p.sx,y:p.sy}; }, nx, ny};
+  }
+  if(k==='B'){
+    if(S.step===2 && S.hand==='strawB'){
+      const n=heldNear(), f=heldAt(210);
+      let nx=-(f.sy-n.sy), ny=f.sx-n.sx; const l=Math.hypot(nx,ny)||1; nx/=l; ny/=l; if(ny>0){ nx=-nx; ny=-ny; }
+      return {straw:true, at:s=>{ const p=heldAt(s+105); return {x:p.sx,y:p.sy}; }, nx, ny};
+    }
+    const sc=RUB_B.half/105;
+    return {straw:true, at:s=>({x:RUB_B.cx+s*sc,y:RUB_B.cy}), nx:0, ny:-1};
+  }
+  let c;
+  if(rubRunning && S.cloth===k) c={x:RUBPOS.x,y:RUBPOS.cy+RUBPOS.off};
+  else if(S.step===2 && S.hand==='cloth' && S.cloth===k){ const n=heldNear(); c={x:n.sx,y:n.sy}; }
+  else c=materialPos[k];
+  return {straw:false, c, kind:k};
+}
+/* 자리 : pair(i)면 원자핵·짝 전자, ex(j)면 옮겨 온 전자 */
+function chPairPos(F,i){
+  if(F.straw){ const p=F.at(-91+i*26); return {n:p, e:{x:p.x+F.nx*CH.OFF,y:p.y+F.ny*CH.OFF}}; }
+  const L2=CH_CLOTH[F.kind], x=F.c.x+L2.dx[i%4], y=F.c.y+L2.dy[Math.floor(i/4)];
+  return {n:{x,y}, e:{x,y:y+CH.OFF}};
+}
+function chExPos(F,j){
+  const s=CH_XO[j];
+  if(F.straw){ const p=F.at(-78+s*26); return {x:p.x+F.nx*CH.OFF,y:p.y+F.ny*CH.OFF}; }
+  const L2=CH_CLOTH[F.kind], row=s<4?1:0, c=s%4, dx=L2.dx, x=c<3?(dx[c]+dx[c+1])/2:dx[3]+(dx[3]-dx[2])/2;
+  return {x:F.c.x+x, y:F.c.y+L2.dy[row]+CH.OFF+1.2};
+}
+/* E번째 전자(1부터)가 있는 자리 — E가 줄면 이 자리의 전자가 떠나고, 늘면 이 자리로 들어온다 */
+function chSlot(k,E){
+  const lo=(k==='A'||k==='B')?CH_LO.straw:CH_LO.cloth;
+  if(E<=CH.N) return {pair:lo[CH.N-E]};
+  return {ex:Math.min(CH.EX-1,E-CH.N-1)};
+}
+function chSlotPos(k,slot){
+  const F=chFrame(k);
+  return slot.pair!=null ? chPairPos(F,slot.pair).e : chExPos(F,slot.ex);
+}
+/* 날아가는 전자 : from/to는 {k,slot} 또는 {hand:true}(맨손 끝) */
+function chEnd(t){ return t.hand ? {x:bare.x,y:bare.y} : chSlotPos(t.k,t.slot); }
+function chAddHops(list){
+  if(!chEl) buildCharge();
+  const now=performance.now();
+  list.forEach((h,j)=>{
+    const el=document.createElementNS(SVGNS,'g');
+    el.setAttribute('class','hop');
+    el.innerHTML='<path class="tr" fill="none" stroke="var(--accent)" stroke-width="1.3" stroke-linecap="round" stroke-dasharray=".6 2.4"/>'+
+      '<circle r="'+(CH.R+2.6)+'" fill="var(--accent)" opacity=".28"/>'+chGlyph(-1,'e');
+    chEl.hop.appendChild(el);
+    h.el=el; h.t0=now+(h.delay||0)+j*(h.gap||0); h.dur=h.dur||520;
+    h.a0=chEnd(h.from);                 /* 떠난 자리는 떠나는 순간에 고정 — 천이 움직이거나 선반으로 돌아가도 궤적이 튀지 않게 */
+    if(h.to.k) chPend[h.to.k]++;
+    chHops.push(h);
+  });
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches){ chHops.forEach(h=>h.t0=-1e9); }
+  chKick();
+}
+function chKick(){ if(!chRaf) chRaf=requestAnimationFrame(chTick); }
+function chTick(now){
+  chRaf=0;
+  let done=false;
+  for(const h of chHops){
+    if(now-h.t0>=h.dur){ h.finished=true; if(h.to.k) chPend[h.to.k]=Math.max(0,chPend[h.to.k]-1); h.el.remove(); done=true; }
+  }
+  if(done) chHops=chHops.filter(h=>!h.finished);
+  renderCharges(now);
+  if(chHops.length) chKick();
+}
+function chClearHops(){ chHops.forEach(h=>h.el&&h.el.remove()); chHops=[]; for(const k in chPend) chPend[k]=0; }
+/* 전자 이동 : 문지를 때 한 물체에서 다른 물체로 add개 */
+function chTransfer(from,to,add){
+  const Ef=CH.N-S.q[from]+add, Et=CH.N-S.q[to]-add-chPend[to];   /* 옮기기 직전의 전자 수 (q는 이미 바뀐 뒤) */
+  const list=[];
+  for(let j=1;j<=add;j++) list.push({from:{k:from,slot:chSlot(from,Ef-j+1)},to:{k:to,slot:chSlot(to,Et+j)},gap:150});
+  chAddHops(list);
+}
+function renderCharges(now){
+  if(!chEl) buildCharge();
+  if(!S.showCharge){ L.chg.style.display='none'; return; }
+  L.chg.style.display='';
+  now=now||performance.now();
+  const hk=S.step===2?heldKey():null;
+  /* 정전기 유도 : 가까운 대전체 쪽으로(+일 때) 또는 반대쪽으로(−일 때) 원자 속 전자가 살짝 치우친다 */
+  let srcA=null, srcH=null;
+  if(hk){
+    const n=heldNear();
+    if(S.q[hk]) srcA={x:n.sx,y:n.sy,q:S.q[hk]};
+    if(S.q.A){ const e1=rodEnd(S.theta,1), e2=rodEnd(S.theta,-1), d1=Math.hypot(e1.sx-n.sx,e1.sy-n.sy), d2=Math.hypot(e2.sx-n.sx,e2.sy-n.sy);
+      const e=d1<d2?e1:e2; srcH={x:e.sx,y:e.sy,q:S.q.A}; }
+  }
+  const shift=(p,src)=>{
+    if(!src) return p;
+    let ux=p.x-src.x, uy=p.y-src.y; const d=Math.hypot(ux,uy)||1; ux/=d; uy/=d;
+    const s=Math.min(1,Math.abs(src.q)/2*Math.pow(40/d,2))*CH.SHIFT*(src.q<0?1:-1);
+    return {x:p.x+ux*s,y:p.y+uy*s};
+  };
+  const tr=(el,p)=>el.setAttribute('transform','translate('+p.x.toFixed(2)+','+p.y.toFixed(2)+')');
+  for(const k of CH_KEYS){
+    const O=chEl[k], F=chFrame(k), src=k==='A'?srcA:(k===hk?srcH:null);
+    const lo=F.straw?CH_LO.straw:CH_LO.cloth;
+    const E=CH.N-S.q[k]-chPend[k];                     /* 지금 보이는 전자 수 */
+    const lost=new Set(lo.slice(0,Math.max(0,CH.N-E)));
+    for(let i=0;i<CH.N;i++){
+      const P=chPairPos(F,i);
+      tr(O.p[i],P.n);
+      O.p[i].classList.toggle('lost',lost.has(i));
+      if(lost.has(i)) O.e[i].style.display='none';
+      else{ O.e[i].style.display=''; tr(O.e[i],shift(P.e,src)); }
+    }
+    const nx=Math.max(0,Math.min(CH.EX,E-CH.N));
+    for(let j=0;j<CH.EX;j++){
+      if(j<nx){ O.x[j].style.display=''; tr(O.x[j],chExPos(F,j)); }
+      else O.x[j].style.display='none';
+    }
+  }
+  /* 날아가는 전자 */
+  for(const h of chHops){
+    const a=h.a0||chEnd(h.from), b=chEnd(h.to);
+    const u=clamp((now-h.t0)/h.dur,0,1), e=easeInOut(u);
+    const mx=(a.x+b.x)/2, my=Math.min(a.y,b.y)-6-Math.hypot(b.x-a.x,b.y-a.y)*.18;
+    const x=(1-e)*(1-e)*a.x+2*(1-e)*e*mx+e*e*b.x, y=(1-e)*(1-e)*a.y+2*(1-e)*e*my+e*e*b.y;
+    h.el.setAttribute('transform','translate('+x.toFixed(2)+','+y.toFixed(2)+')');
+    const qx=a.x+(mx-a.x)*e, qy=a.y+(my-a.y)*e;
+    h.el.firstChild.setAttribute('d','M'+(a.x-x).toFixed(2)+','+(a.y-y).toFixed(2)+' Q'+(qx-x).toFixed(2)+','+(qy-y).toFixed(2)+' 0,0');
+    h.el.style.opacity=u>0?'1':'.85';
+  }
 }
 
 /* --- 매 프레임 --- */
@@ -2355,37 +2579,8 @@ function renderScene(){
     EL.shHand.style.display='';
   } else EL.shHand.style.display='none';
 
-  /* 전하 기호 : 빨대와 물체 위에 얹는다 */
-  if(S.showCharge){
-    L.chg.style.display='';
-    const csA=EL.csA.children;
-    for(let i=0;i<csA.length;i++){
-      const t=csA.length===1?0:(i/(csA.length-1)*2-1)*0.62;
-      const p=rodAt(th,t*HALF);
-      csA[i].setAttribute('transform','translate('+(p.sx+nx*10).toFixed(2)+','+(p.sy+ny*10).toFixed(2)+')');
-    }
-    const csB=EL.csB.children;
-    if(S.step===2){
-      for(let i=0;i<csB.length;i++){
-        const s = S.hand==='strawB' ? 18+i*(150/Math.max(csB.length-1,1)) : 4+i*7;
-        const p=heldAt(S.hand==='strawB'?s:0);
-        const q=S.hand==='strawB'?p:heldAt(0);
-        const ox=S.hand==='strawB'?6:(i%3-1)*11, oy=S.hand==='strawB'?-6:(Math.floor(i/3)*10-5);
-        csB[i].setAttribute('transform','translate('+(q.sx+ox).toFixed(2)+','+(q.sy+oy).toFixed(2)+')');
-      }
-    }else{
-      /* 1단계 : 눕혀 둔 빨대 ㉡ 위에 고르게, 문지르는 천 위에는 따라다니게 */
-      for(let i=0;i<csB.length;i++){
-        const bx=RUB_B.cx-70+i*(140/Math.max(csB.length-1,1));
-        csB[i].setAttribute('transform','translate('+bx.toFixed(2)+','+(RUB_B.cy-10)+')');
-      }
-      const csC=EL.csC.children, cs=clothSpot();
-      for(let i=0;i<csC.length;i++){
-        csC[i].setAttribute('transform','translate('+(cs.x+(i%3-1)*11).toFixed(2)+
-          ','+(cs.y-9+Math.floor(i/3)*10).toFixed(2)+')');
-      }
-    }
-  } else L.chg.style.display='none';
+  /* 전하 : 모든 물체의 원자핵(+)·전자(−) — 자리는 물체를 따라다닌다 */
+  renderCharges();
 
   /* 전기력 화살표 + 치수선 */
   const p=physics(th);
@@ -2407,10 +2602,13 @@ function renderScene(){
     EL.dimLine.setAttribute('x2',(bsx+ux*2).toFixed(2)); EL.dimLine.setAttribute('y2',(bsy+uy*2).toFixed(2));
     setChip(EL.dimChip,(asx+bsx)/2,(asy+bsy)/2-8,Math.round(p.dn)+' mm',null,'middle');
     EL.dimLine.style.display='';
+    /* 거리 이름표 바로 위에 쌓는다 — 아래쪽은 손에 든 물체의 이름표가 지나간다 */
+    setChip(EL.fChip,(asx+bsx)/2,(asy+bsy)/2-8-(FS.f2*1.7+2),
+      p.induced ? '정전기 유도 · 끌어당김' : (p.kind==='push'?'밀어냄(척력)':'끌어당김(인력)')+' · '+relWord(p.rel), null,'middle');
   } else if(hk){
     /* 전하가 없으면 힘 화살표는 그리지 않는다 — 길이 0인 선에도 마커가 남는다 */
     L.force.style.display='';
-    EL.fRod.style.display='none'; EL.fHeld.style.display='none';
+    EL.fRod.style.display='none'; EL.fHeld.style.display='none'; hideChip(EL.fChip);
     const a=rodEnd(th,1), b=heldNear();
     EL.dimLine.setAttribute('x1',a.sx.toFixed(2)); EL.dimLine.setAttribute('y1',a.sy.toFixed(2));
     EL.dimLine.setAttribute('x2',b.sx.toFixed(2)); EL.dimLine.setAttribute('y2',b.sy.toFixed(2));
@@ -2419,7 +2617,9 @@ function renderScene(){
   } else L.force.style.display='none';
 
   /* 장면 안 직접 라벨 = State (HUD에 다시 적지 않는다 §3.1.3) */
-  const pick = (e1.sy < e2.sy-6) ? 1 : (e2.sy < e1.sy-6) ? -1 : -1;
+  let pick = (e1.sy < e2.sy-6) ? 1 : (e2.sy < e1.sy-6) ? -1 : -1;
+  /* 2단계 : 손에 든 물체 쪽 끝에는 거리·힘 이름표가 서므로, 빨대 ㉠의 이름표는 반대쪽 끝에 둔다 */
+  if(S.step===2 && hk){ const n=heldNear(); pick = Math.hypot(e1.X-n.X,e1.Y-n.Y) >= Math.hypot(e2.X-n.X,e2.Y-n.Y) ? 1 : -1; }
   const lp=rodAt(th, pick*82);
   /* 1단계에서 빨대 ㉠ 위를 천이 지나가면 라벨을 아래로 내린다 */
   const aBelow = S.step===1 && S.rubTarget==='A';
@@ -2435,7 +2635,32 @@ function renderScene(){
   /* 눕혀 둔 빨대 ㉡ */
   if(S.step===1 || S.hand!=='strawB') setChip(EL.chC, RUB_B.cx, RUB_B.cy+17, '빨대 ㉡', S.q.B, 'middle');
   else hideChip(EL.chC);
+  renderTrace(th,hk);
   return p;
+}
+
+/* ---- 회전 궤적 : 처음 자리(점선)와 돌아간 각도(호 + 각도) — 2단계에서 빨대 ㉠이 1.5° 이상 돌았을 때만 ----
+   호는 손에 든 물체의 반대쪽 끝에 그린다(손이 덮지 않는 자리). 각도는 처음 자리(0°) 기준이며 HUD의 회전각과 같은 값이다 */
+function renderTrace(th,hk){
+  const deg=normAngle(th), show=S.step===2 && Math.abs(deg)>=1.5;
+  L.trace.style.display=show?'':'none';
+  if(!show){ hideChip(EL.trChip); return; }
+  const g1=rodEnd(0,-1), g2=rodEnd(0,1);
+  EL.trGhost.setAttribute('x1',g1.sx.toFixed(2)); EL.trGhost.setAttribute('y1',g1.sy.toFixed(2));
+  EL.trGhost.setAttribute('x2',g2.sx.toFixed(2)); EL.trGhost.setAttribute('y2',g2.sy.toFixed(2));
+  let sgn=1;
+  if(hk){ const n=heldNear(), a=rodEnd(th,1), b=rodEnd(th,-1);
+    /* 손에 든 물체가 닿아 있는 끝은 손·이름표가 덮으므로, 호는 그 반대쪽 끝에 그린다 (같은 각도) */
+    sgn = Math.hypot(a.X-n.X,a.Y-n.Y)<=Math.hypot(b.X-n.X,b.Y-n.Y) ? -1 : 1; }
+  const R=HALF+9, a0=sgn>0?0:Math.PI, a1=a0+deg*DEG, n=Math.max(2,Math.ceil(Math.abs(deg)/6));
+  let d='';
+  for(let i=0;i<=n;i++){
+    const a=a0+(a1-a0)*i/n, X=PIV.X+R*Math.cos(a), Y=PIV.Y+R*Math.sin(a);
+    d+=(i?' L':'M')+X.toFixed(2)+','+py(Y,ROD_Z).toFixed(2);
+  }
+  EL.trArc.setAttribute('d',d);
+  const am=(a0+a1)/2, mX=PIV.X+(R+11)*Math.cos(am), mY=PIV.Y+(R+11)*Math.sin(am);
+  setChip(EL.trChip,mX,py(mY,ROD_Z),Math.round(Math.abs(deg))+'°',null,'middle');
 }
 
 /* ==========================================================================
@@ -2543,6 +2768,9 @@ function statusSentence(p){
        (p.induced ? '정전기 유도로 서로 <b>끌어당기는</b> 전기력'
                   : '서로 <b>'+(p.kind==='push'?'밀어내는':'끌어당기는')+'</b> 전기력')+
        '이 '+relAdverb(p.rel)+' 작용해요.';
+  /* 밀어내는데도 돌지 않으면 까닭을 말한다 — 빨대 끝의 정면은 힘이 좌우로 균형을 이루는 자리(불안정 평형)다 */
+  if(p.kind==='push' && !p.induced && p.rel>=0.03 && Math.abs(p.tau*KT)<0.06 && Math.abs(S.omega)<0.005)
+    s+=' 지금은 빨대 끝의 <b>정면</b>이라 힘이 좌우로 균형을 이뤄 돌지 않아요. 살짝 옆으로 옮겨 보세요.';
   /* 회전각은 바로 옆 계기(빨대 ㉠ 회전각)에 크게 있으므로 문장에서 되풀이하지 않는다 (§5) */
   return s;
 }
@@ -2563,6 +2791,7 @@ function frame(t){
   const moving = S.step===1 ? stepRub(t) : stepPhysics(dt);
   lastP=renderScene();
   renderHUD(lastP);
+  trialTick(moving,lastP);
   if(moving){
     if(t-statusAt>1100){ statusAt=t; renderStatus(lastP); }
     raf=requestAnimationFrame(frame);
@@ -2578,6 +2807,60 @@ function refreshStill(){
   buildCharge();
   lastP=renderScene(); renderHUD(lastP); renderStatus(lastP);
 }
+
+/* ==========================================================================
+   11-b. 관찰 기록 — 교과서 결과표 (가까이 가져간 물체 → 빨대 ㉠의 움직임)
+   빨대 ㉠이 돌기 시작해 멈출 때까지를 한 번의 관찰로 세고, 4° 이상 돌았으면 한 줄 적는다.
+   같은 조건(손에 든 물체 · 두 전하의 부호)은 한 줄로 합치고 최대 회전각만 갱신한다.
+   ========================================================================== */
+let trial=null;
+function obsKey(){ const hk=heldKey(); if(!hk) return null; return hk+'|'+Math.sign(S.q.A)+'|'+Math.sign(S.q[hk]); }
+function trialTick(moving,p){
+  if(S.step!==2 || predictionPending()){ trial=null; return; }
+  const hk=heldKey();
+  if(moving && !trial && hk && p && p.kind!=='none'){
+    trial={key:obsKey(),held:hk,hand:S.hand,qA:S.q.A,qH:S.q[hk],kind:p.induced?'ind':p.kind,max:0,poe:S.poeAsked[poeKey()]||null};
+  }
+  if(!trial) return;
+  if(p && p.kind!=='none') trial.kind=p.induced?'ind':p.kind;
+  trial.max=Math.max(trial.max,Math.abs(normAngle(S.theta)));
+  if(!moving){ if(trial.max>=4) obsAdd(trial); trial=null; }
+}
+function obsName(r){ return r.held==='B' ? '빨대 ㉡' : MAT[OBJ[r.held]].name; }
+function obsKindWord(k){ return k==='push'?'밀려남':k==='ind'?'끌려옴 (정전기 유도)':'끌려옴'; }
+function obsAdd(t){
+  const row={key:t.key,held:t.held,qA:t.qA,qH:t.qH,kind:t.kind,deg:Math.round(t.max),poe:t.poe,at:Date.now()};
+  const i=S.obs.findIndex(r=>r.key===row.key);
+  if(i>=0){ const o=S.obs[i]; o.deg=Math.max(o.deg,row.deg); o.kind=row.kind; if(row.poe) o.poe=row.poe; o.at=row.at; }
+  else S.obs.push(row);
+  LS.write('obs',S.obs); renderObs();
+  if(i<0) toast('관찰 기록 — '+obsName(row)+' → 빨대 ㉠이 '+obsKindWord(row.kind).replace(' (정전기 유도)','')+' ('+row.deg+'°)');
+}
+function renderObs(){
+  const box=$('#obsList'), clr=$('#obsClear'); if(!box) return;
+  clr.disabled=!S.obs.length;
+  if(!S.obs.length){
+    box.innerHTML='<p class="obs-empty">아직 기록이 없어요. 손에 든 물체를 가까이 가져가 빨대 ㉠이 움직이면 결과가 여기 적혀요.</p>';
+    return;
+  }
+  const sg=q=>q===0?'<span class="z">중성</span>':q>0?'<span class="p">(+)</span>':'<span class="n">(−)</span>';
+  let h='<table class="obs-table"><thead><tr><th scope="col">가까이 가져간 물체</th><th scope="col">빨대 ㉠</th><th scope="col">움직임 · 회전각</th></tr></thead><tbody>';
+  for(const r of S.obs){
+    const hit=r.poe&&r.poe!=='skip' ? ((r.poe==='push')===(r.kind==='push')) : null;
+    h+='<tr><td>'+esc(obsName(r))+' '+sg(r.qH)+'</td><td>'+sg(r.qA)+'</td>'+
+       '<td class="r '+r.kind+'">'+obsKindWord(r.kind)+' <span class="deg">'+r.deg+'°</span>'+
+       (hit===null?'':'<br><span class="obs-poe">예측 '+(r.poe==='push'?'밀려난다':'끌려온다')+(hit?' ✓':' ✗')+'</span>')+'</td></tr>';
+  }
+  h+='</tbody></table>';
+  if(S.obs.some(r=>r.kind==='push') && S.obs.some(r=>r.kind!=='push'))
+    h+='<p class="obs-sum"><b>견주어 보기</b> — 전하의 종류가 같을 때와 다를 때의 움직임을 비교해 탐구 질문에 정리해 보세요.</p>';
+  box.innerHTML=h;
+}
+$('#obsClear').addEventListener('click',()=>{
+  if(!S.obs.length) return;
+  S.obs=[]; trial=null; LS.write('obs',S.obs); renderObs();
+  toast('관찰 기록을 지웠어요. 전하와 답안은 그대로예요.');
+});
 
 /* ==========================================================================
    12. 조작
@@ -2598,7 +2881,13 @@ function setStep(n){
   if(n===1){
     S.theta=0; S.omega=0;
     poe.hidden=true; S.paused=false;
+  }else{
+    S.visited2=true;
+    const b2=$('#steps .stepb[data-step="2"]'); if(b2) delete b2.dataset.nudge;
   }
+  trial=null;
+  /* 같은 세그먼트가 1단계에서는 '문지를 재료', 2단계에서는 '손에 들 천'을 고른다 — 라벨이 그 뜻을 말해야 한다 */
+  $('#lbCloth').textContent = n===1 ? '① 마찰 재료 · 화면에서 집기' : '재료 고르기 · 손에 들 천';
   buildRub(); buildHand(); updateScale(); chgSig='';
   if(n===2 && S.hand!=='none') fistReachIn();
   renderRubCount(); refreshStill(); renderLesson();
@@ -2617,10 +2906,21 @@ function makeRubPlan(){
   const c=S.cloth, target=S.rubTarget, key=c+'|'+target;
   const rec=S.rub[key]||(S.rub[key]={n:0,moved:0});
   const nmax=nmaxFor(c,target);
-  const want=Math.min(nmax, Math.ceil(nmax*(1-Math.pow(0.5,rec.n+1))));
+  const ct=MAT[OBJ[c]].tribo, tt=MAT[OBJ[target]].tribo, donor=(ct>tt?c:target), recv=(ct>tt?target:c);
+  /* 대전 모형 : 이 짝의 평형(빨대가 nmax만큼 대전된 상태)까지 남은 거리의 절반씩(올림) 다가간다.
+     · 중성에서 시작하면 2 → 3 → 4 (털가죽) 처럼 문지를수록 늘다가 포화된다.
+     · 빨대가 이미 그 방향으로 대전돼 있으면 더 옮겨 가지 않는다 (천을 접지한 뒤 다시 문질러도 끝없이 늘지 않는다).
+     · 반대 부호로 대전된 빨대를 문지르면(예 : 털가죽으로 (−)가 된 빨대를 비닐 랩으로) 먼저 중성이 되고 나서 반대 부호로 대전된다 —
+       한 번에 평형까지 뛰지 않고, 잃은 전자·옮겨 온 전자의 표시 한도(물체마다 8)를 넘지 않는다 */
+  const have=rubHave(c,target), gap=Math.max(0,nmax-have);
+  let delta=gap>0?Math.ceil(gap/2):0;
+  delta=Math.min(delta, CH.N-S.q[donor], CH.EX+S.q[recv]);
+  delta=Math.max(0,delta);
+  return {c,target,key,rec,nmax,want:have+delta,delta,given:0,donor,recv};
+}
+function rubHave(c,target){
   const ct=MAT[OBJ[c]].tribo, tt=MAT[OBJ[target]].tribo;
-  return {c,target,key,rec,nmax,want,delta:want-rec.moved,given:0,
-          donor:(ct>tt?c:target), recv:(ct>tt?target:c)};
+  return ct>tt ? -S.q[target] : S.q[target];
 }
 function giveElectrons(k){               /* k : 0‥1 — 여기까지 건너가야 할 몫 */
   if(!rubPlan) return;
@@ -2628,6 +2928,7 @@ function giveElectrons(k){               /* k : 0‥1 — 여기까지 건너가
   if(!add) return;
   rubPlan.given=give;
   S.q[rubPlan.donor]+=add; S.q[rubPlan.recv]-=add;
+  chTransfer(rubPlan.donor,rubPlan.recv,add);
   chgSig=''; buildCharge();
 }
 function startRub(){
@@ -2644,10 +2945,12 @@ function startRub(){
 }
 function stepRub(t){
   if(!rubRunning) return false;
-  rubT=(t-rubAt)/RUB_DUR;
+  rubT=Math.min(1,(t-rubAt)/RUB_DUR);
+  renderRub();                           /* 천의 자리(RUBPOS)를 먼저 맞춘 뒤 전자를 넘긴다 — 전자가 천의 실제 자리에서 출발하게 */
   if(rubT>=1){
-    rubT=1; rubRunning=false;
-    giveElectrons(1);
+    rubT=1;
+    giveElectrons(1);                    /* 천이 선반으로 돌아가기 전에 마지막 전자를 넘긴다 */
+    rubRunning=false;
     finishRub();
     return false;
   }
@@ -2657,7 +2960,7 @@ function stepRub(t){
 }
 function finishRub(){
   const p=rubPlan;
-  p.rec.n++; p.rec.moved=p.want;
+  p.rec.n++; p.rec.moved+=p.given;
   S.lastRub={cloth:p.c,target:p.target,donor:p.donor,recv:p.recv,
              moved:p.rec.moved,n:p.rec.n,nmax:p.nmax};
   /* 전자가 옮겨 간 결과는 물체 옆 전하 표시에 바로 나타나므로 토스트를 띄우지 않는다.
@@ -2666,6 +2969,8 @@ function finishRub(){
   $('#btnRub').disabled=false;
   $$('#segCloth [role="radio"],#segTarget [role="radio"]').forEach(b=>b.disabled=false);
   $$('#steps .stepb').forEach(b=>{ if(b.dataset.step==='1') b.dataset.done='1'; });
+  /* 처음 문지른 뒤 아직 2단계를 열지 않았으면, 다음 걸음(2단계 단추)이 잠깐 눈에 띈다 */
+  if(!S.visited2){ const b2=$('#steps .stepb[data-step="2"]'); if(b2){ b2.dataset.nudge='0'; void b2.offsetWidth; b2.dataset.nudge='1'; } }
   renderLadder(); renderAtom(); renderRubCount();
 }
 $('#btnRub').addEventListener('click',startRub);
@@ -2700,7 +3005,7 @@ function renderRubCount(){
     return;
   }
   el.innerHTML=esc(nm)+' ↔ '+esc(tn)+' — 문지른 횟수 <b>'+rec.n+'회</b>, 옮겨 간 전자 <b>'+
-    rec.moved+'개</b>'+(rec.moved>=nmax?' · <b>포화</b>':'');
+    rec.moved+'개</b>'+(rubHave(S.cloth,S.rubTarget)>=nmax?' · <b>포화</b>':'');
 }
 
 /* --- 세그먼트 --- */
@@ -2760,7 +3065,7 @@ $('#btnReset').addEventListener('click',()=>{
   rubRunning=false; manualRub=null; rubPlan=null; rubT=0;
   $('#btnRub').disabled=false;
   $$('#segCloth [role="radio"],#segTarget [role="radio"]').forEach(b=>b.disabled=false);
-  S.q={A:0,B:0,fur:0,cotton:0,pvc:0};
+  S.q={A:0,B:0,fur:0,cotton:0,pvc:0}; chClearHops(); trial=null;
   S.rub={}; S.lastRub=null; S.theta=0; S.omega=0;
   S.r=145; S.phi=-10*DEG; S.freeHeld=null; resetMaterials(); S.poeAsked={}; S.poeCount=0;
   chgSig='';
@@ -2775,8 +3080,8 @@ hand.addEventListener('keydown',e=>{
   if(S.hand==='none') return;
   S.freeHeld=null;
   const K=e.key; let used=true;
-  if(K==='ArrowLeft')       S.r=clamp(S.r-6,R_MIN,Math.max(R_MAX,S.r));
-  else if(K==='ArrowRight') S.r=clamp(S.r+6,R_MIN,Math.max(R_MAX,S.r));
+  if(K==='ArrowLeft')       S.r=clamp(S.r-6,R_MIN,R_FREE);
+  else if(K==='ArrowRight') S.r=clamp(S.r+6,R_MIN,R_FREE);   /* 끌기와 같은 범위 — 예전에는 R_MAX(185)에서 막혔다 */
   else if(K==='ArrowUp')    S.phi=wrapAngle(S.phi+3*DEG);
   else if(K==='ArrowDown')  S.phi=wrapAngle(S.phi-3*DEG);
   else used=false;
@@ -3549,6 +3854,14 @@ function triboTableHTML(){
     }).join('')+
     '</tbody></table>';
 }
+/* 마찰 전기 카드의 '실험 연결' — 방금 실험대에서 문지른 짝을 그대로 읽어 준다 (털가죽 4개로 고정하지 않는다) */
+function theoryLinkRub(){
+  const R=S.lastRub;
+  if(!R) return '실험 연결 — 1단계에서 문지르면 두 물체 옆에 <b>(+)전하·(−)전하</b>와 옮겨 간 전자 수가 표시돼요. 전자를 얻은 쪽이 (−), 잃은 쪽이 (+)예요.';
+  const dn=objName(R.donor), rn=objName(R.recv), cn=MAT[OBJ[R.cloth]].name, tn=objName(R.target);
+  return '실험 연결 — 방금 '+esc(euro(cn))+' '+esc(tn)+'을 문질러 전자 <b>'+R.moved+'개</b>가 <b>'+esc(dn)+' → '+esc(rn)+'</b>'+jos(rn,'으로','로')+
+         ' 옮겨 갔어요. 그래서 '+esc(eun(rn))+' <b>(−)전하</b>, '+esc(eun(dn))+' <b>(+)전하</b>를 띠어요.';
+}
 function renderTheory(){
   $('#theoryBody').innerHTML=
   '<svg width="0" height="0" style="position:absolute"><defs>'+
@@ -3562,7 +3875,7 @@ function renderTheory(){
   '<p class="def">서로 다른 두 물체를 마찰할 때 물체가 띠는 전기.</p>'+ SVG_RUB +
   '<p>마찰하지 않은 물체는 (+)전하량과 (−)전하량이 같아 전기적으로 중성이에요. 두 물체를 문지르면 한 물체에서 다른 물체로 전자가 옮겨 가 <b>한쪽은 (+)전하, 다른 쪽은 (−)전하</b>를 띠게 돼요.</p>'+
   '<p>이렇게 물체가 전하를 띠는 현상을 <b>대전</b>, 전하를 띤 물체를 <b>대전체</b>라고 해요.</p>'+
-  '<p class="link">실험 연결 — 빨대 ㉠에 <b>(−)전하 4</b>가 표시된 것이 바로 털가죽에서 전자를 얻었기 때문입니다.</p></section>'+
+  '<p class="link">'+theoryLinkRub()+'</p></section>'+
 
   '<section class="tcard"><h3>전기력</h3>'+
   '<p class="def">전하를 띤 두 물체 사이에 작용하는 힘.</p>'+ SVG_FORCE +
@@ -3575,6 +3888,7 @@ function renderTheory(){
   '<p>대전열에서 <b>위에 있는 물체가 전자를 잃어 (+)전하</b>, 아래에 있는 물체가 전자를 얻어 (−)전하를 띠어요. 두 물체가 대전열에서 <b>멀리 떨어져 있을수록 더 많이 대전</b>돼요.</p>'+
   triboTableHTML()+
   '<p class="link">실험 연결 — <b>비닐 랩</b>을 고르면 빨대보다 아래에 있어 <b>빨대가 (+)전하</b>를 띠고, 두 물체가 대전열에서 가까이 있어 조금만 대전됩니다.</p>'+
+  '<p class="link" style="color:var(--text-2);font-weight:500">※ 이 실험실은 비닐 랩을 PVC, 빨대를 PP(폴리프로필렌)로 가정했어요. 랩의 실제 재질(PE 등)이나 표면 상태에 따라 두 물체의 순서가 바뀌어 결과가 반대로 나올 수도 있어요.</p>'+
   '<details class="more"><summary>더 알아보기 — 대전열의 값은 무엇인가요?</summary>'+
   '<p>표의 숫자는 <b>교육용 상대값</b>이에요. 실제 대전열은 “어느 쪽이 (+)가 되는가”라는 <b>순서</b>가 실험으로 정해진 것이고, 얼마나 대전되는지는 재질·표면 상태·문지른 세기·습도에 따라 달라져 하나의 숫자로 정해지지 않아요. 이 실험실은 순서는 실제 대전열을 따르고, 숫자는 대전되는 양을 비교해 보기 위해 넣었어요.</p></details></section>'+
 
@@ -3583,6 +3897,8 @@ function renderTheory(){
   '<p>대전체를 <b>문지르지 않은 물체</b>에 가까이 하면, 물체 안의 전자가 움직여 <b>가까운 쪽에는 대전체와 다른 종류의 전하</b>가, 먼 쪽에는 같은 종류의 전하가 모여요. 가까운 쪽이 더 세게 작용하므로 물체는 <b>끌려와요</b>.</p>'+
   '<p>금속처럼 전자가 자유롭게 움직이는 물체는 전자가 먼 쪽 끝까지 이동해요. 빨대·털가죽처럼 전자가 잘 이동하지 못하는 물체는 전자가 <b>원자 안에서만 살짝 치우치지만</b>, 가까운 쪽에 다른 종류의 전하가 생기는 것은 같아서 역시 끌려와요.</p>'+
   '<p>물체 전체의 전하량 합은 여전히 0이에요. 전하가 새로 생긴 것이 아니라 <b>자리만 옮긴 것</b>이기 때문이에요.</p>'+
+  '<details class="more"><summary>더 알아보기 — 부도체에서는 ‘유전 분극’</summary>'+
+  '<p>빨대처럼 전자가 원자를 벗어나지 못하는 <b>부도체</b>에서 전자가 원자 안에서만 치우치는 현상은 고등학교에서 <b>유전 분극</b>이라고 따로 불러요. 중학교에서는 도체·부도체 모두 ‘정전기 유도’로 묶어 설명하고, 이 실험실도 그렇게 표시했어요. 어느 쪽이든 <b>가까운 쪽에 대전체와 다른 종류의 전하</b>가 생겨 끌려오는 것은 같아요.</p></details>'+
   '<p class="link">실험 연결 — 문지르지 않은 물체를 가까이 가져가면 <b>전기력</b> 칸이 <b>정전기 유도 · 끌어당김</b>으로 바뀌고, 밀어내는 경우는 생기지 않습니다. <b>전자의 이동</b> 탭의 <b>② 가까이 가져갈 때</b>에서 전자가 치우치는 모습을 볼 수 있어요.</p></section>'+
 
   '<section class="tcard"><h3>같은 원리의 다른 실험</h3>'+
@@ -4153,7 +4469,7 @@ function openReport(){
       S.sid=sid; S.name=nm; S.carry=$('#fCarry').checked;
       LS.sid=sid; LS.carry=S.carry;
       LS.write('sid',{sid:sid,name:nm}); LS.write('carry',S.carry);
-      saveQ(); LS.write('poe',S.poeLog);
+      saveQ(); LS.write('poe',S.poeLog); LS.write('obs',S.obs);
       openReport();
     });
     $$('[data-close-report]').forEach(b=>b.addEventListener('click',closeTop));
@@ -4216,6 +4532,17 @@ function buildPrint(opt){
       h+='</div>';
     });
   }
+  if(S.obs.length){
+    const sg=q=>q===0?'중성':q>0?'(+)전하':'(−)전하';
+    h+='<div class="pq"><h2>관찰 기록 — 빨대 ㉠의 움직임</h2><table class="pobs"><thead><tr>'+
+       '<th>가까이 가져간 물체</th><th>빨대 ㉠의 전하</th><th>빨대 ㉠의 움직임 · 최대 회전각</th><th>예측</th></tr></thead><tbody>';
+    S.obs.forEach(r=>{
+      const hit=r.poe&&r.poe!=='skip' ? ((r.poe==='push')===(r.kind==='push')) : null;
+      h+='<tr><td>'+esc(obsName(r))+' · '+sg(r.qH)+'</td><td>'+sg(r.qA)+'</td><td>'+obsKindWord(r.kind)+' · '+r.deg+'°</td>'+
+         '<td>'+(hit===null?'—':(r.poe==='push'?'밀려난다':'끌려온다')+(hit?' (예측대로)':' (예측과 다름)'))+'</td></tr>';
+    });
+    h+='</tbody></table></div>';
+  }
   if(S.poeLog.length){
     h+='<div class="pq"><h2>예측 기록</h2>';
     S.poeLog.forEach(r=>{
@@ -4229,7 +4556,14 @@ function buildPrint(opt){
   if(opt.blank){
     h+='<div class="pbreak"><h1>학습지 — 마찰한 두 물체에 작용하는 힘</h1>'+
        '<div class="phead"><span>학번 ______________</span><span>이름 ______________</span>'+
-       '<span>날짜 ______________</span></div>';
+       '<span>날짜 ______________</span></div>'+
+       /* 교과서 결과표 : 먼저 예측을 적고, 관찰한 뒤 결과를 적는다 */
+       '<div class="pq"><h2>관찰 기록표 — 빨대 ㉠의 움직임</h2><table class="pobs"><thead><tr>'+
+       '<th style="width:38%">가까이 가져간 물체</th><th style="width:26%">예측 (밀려난다 · 끌려온다)</th><th>관찰 결과</th></tr></thead><tbody>'+
+       '<tr><td>털가죽으로 문지른 빨대 ㉡</td><td class="blank"></td><td class="blank"></td></tr>'+
+       '<tr><td>빨대 ㉠을 문지른 털가죽</td><td class="blank"></td><td class="blank"></td></tr>'+
+       '<tr><td>(내가 고른 물체) ______________</td><td class="blank"></td><td class="blank"></td></tr>'+
+       '</tbody></table></div>';
     QS.forEach((Q,i)=>{
       h+='<div class="pq"><h2>'+(i+1)+'. '+Q.q+'</h2>'+qlabPrintFigure(i)+
          '<div class="plines"><i></i><i></i><i></i><i></i><i></i></div>'+
@@ -4237,7 +4571,9 @@ function buildPrint(opt){
          '<div class="plines"><i></i><i></i><i></i></div></div>';
     });
     if(opt.key){
-      h+='<div class="pbreak"><h1>정답 · 모범 답안 (교사용)</h1>';
+      h+='<div class="pbreak"><h1>정답 · 모범 답안 (교사용)</h1>'+
+         '<div class="pq"><h2>관찰 기록표</h2><p>털가죽으로 문지른 빨대 ㉡ → <b>밀려난다</b> (두 빨대 모두 (−)전하 · 같은 종류) &nbsp;/&nbsp; '+
+         '빨대 ㉠을 문지른 털가죽 → <b>끌려온다</b> (빨대 (−) · 털가죽 (+) · 다른 종류)</p></div>';
       QS.forEach((Q,i)=>{
         h+='<div class="pq"><h2>'+(i+1)+'.</h2><p>'+Q.model.replace(/<\/?mark>/g,'')+'</p></div>';
       });
@@ -4247,7 +4583,7 @@ function buildPrint(opt){
   }
   h+='<div class="pfoot">🧪 송쌤과학 (Song Ssaem Science) · ⓒ 2026 송세호 | 아주중학교<br>'+
      '📺 YouTube: @songsamscience  📷 Instagram: @songsamscience<br>'+
-     '⚠ 무단 복제·상업적 이용 금지</div>';
+     '⚠ 무단 복제·상업적 이용 금지 · 가상실험실 '+APP_VERSION+' ('+APP_DATE+')</div>';
   $('#printview').innerHTML=h;
   const t=document.title;
   document.title='마찰한두물체에작용하는힘_리포트'+(S.sid?'_'+S.sid:'')+(S.name?'_'+S.name:'');
@@ -4356,6 +4692,7 @@ function doCapture(){
   const band=Math.round(112*f);
   let svgStr;
   try{ svgStr=capSceneSVG(W,H); }catch(e){ capFail(); return; }
+  const lines=capSummary(), st=capStamp();   /* 장면 복제와 같은 순간의 조건·결과 */
   const url=URL.createObjectURL(new Blob([svgStr],{type:'image/svg+xml;charset=utf-8'}));
   const img=new Image();
   const slow=setTimeout(()=>toast('결과 이미지를 만드는 중이에요…'),700);
@@ -4372,7 +4709,7 @@ function doCapture(){
       ctx.fillStyle=tok('--surface-1')||'#1D1A15'; ctx.fillRect(0,H,W,band);
       ctx.fillStyle=tok('--line-2')||'#463E32'; ctx.fillRect(0,H,W,Math.max(1,Math.round(f)));
       const font=(w,px)=>w+' '+Math.round(px*f)+'px "Pretendard Variable",Pretendard,"Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif';
-      const pad=Math.round(24*f), rightW=Math.round(300*f), leftW=W-pad*3-rightW, st=capStamp(), lines=capSummary();
+      const pad=Math.round(24*f), rightW=Math.round(300*f), leftW=W-pad*3-rightW;
       ctx.textBaseline='alphabetic'; ctx.textAlign='left';
       ctx.fillStyle=tok('--accent')||'#E0A03A'; ctx.font=font(800,13);
       ctx.fillText('실험 결과 · 송쌤과학 가상실험실',pad,H+Math.round(28*f));
@@ -4387,7 +4724,7 @@ function doCapture(){
       ctx.fillStyle=tok('--text-2')||'#BDB4A4'; ctx.font=font(500,13);
       ctx.fillText(st.text,W-pad,H+Math.round(58*f));
       ctx.fillStyle=tok('--text-3')||'#8D8474'; ctx.font=font(600,12);
-      ctx.fillText('© 2026 송쌤과학 · YouTube·Instagram @songsamscience',W-pad,H+Math.round(94*f));
+      ctx.fillText('© 2026 송쌤과학 · YouTube·Instagram @songsamscience · '+APP_VERSION,W-pad,H+Math.round(94*f));
       const safe=s=>String(s).replace(/[\\/:*?"<>|\s]+/g,'');
       const name='마찰한두물체에작용하는힘_실험결과_'+[safe(S.sid),safe(S.name)].filter(Boolean).map(s=>s+'_').join('')+st.file+'.png';
       cv.toBlob(b=>{
@@ -4446,6 +4783,8 @@ function openHelp(){
       '<li><b>전자의 이동</b> — <b>① 문지를 때</b>에서 천을 끌어 빨대 위에 올리고 좌우로 문지르면, 닿은 자리에서 전자가 한 개씩 건너갑니다. <b>떼어 내기</b>를 누르면 두 물체가 띤 전하가 드러납니다. <b>② 가까이 가져갈 때</b>에서는 전하를 띤 물체를 가까이 할수록 빨대 ㉠의 원자 속 전자가 한쪽으로 치우치고 힘 화살표가 길어집니다.</li>'+
       '<li><b>탐구 질문의 간이 실험</b> — 손에 든 물체를 끌어 빨대 ㉠ 둘레 어디로든 옮길 수 있습니다. 손잡이는 지금 방향에서 거리만 바꾸고, 물체에 포커스를 두면 방향키(←→ 거리, ↑↓ 방향)로도 움직입니다.</li>'+
       '<li>빨대 끝의 <b>정확히 정면</b>에 두면 밀어내는 힘이 좌우로 균형을 이뤄 거의 돌지 않습니다. 살짝 옆으로 옮겨 보세요.</li>'+
+      '<li><b>전하 표시</b> — 모든 물체에 <b>원자핵(+)과 전자(−)를 함께</b> 보여요. 중성인 물체는 둘의 수가 같고, 전자를 잃은 원자핵에는 점선 고리, 옮겨 온 전자에는 노란 고리가 둘러져요. 문지르면 닿은 자리에서 전자가 한 개씩 건너가고, 맨손을 대면 손끝으로 빠져나가거나 손끝에서 들어와요. 2단계에서 대전체를 가까이 하면 빨대 속 전자가 살짝 치우쳐요(정전기 유도).</li>'+
+      '<li><b>관찰 기록</b> — 2단계에서 빨대 ㉠이 돌아가 멈출 때마다 리모컨의 <b>관찰 기록</b>에 한 줄이 적혀요(가까이 가져간 물체 · 빨대 ㉠의 전하 · 밀려남/끌려옴 · 최대 회전각 · 예측이 맞았는지). 같은 조건은 한 줄로 합쳐지고, 학습 리포트에도 표로 인쇄돼요. 장면에는 <b>처음 자리(점선)</b>와 <b>돌아간 각도(호)</b>가 함께 그려져요.</li>'+
       '<li><b>실험 결과 저장</b> — 실험대 모서리의 <b>📷 결과 저장</b>(단축키 <span class="kbd">C</span>)을 누르면 지금 보이는 장면과 실험 조건·전하·날짜가 담긴 PNG 이미지가 기기의 다운로드 폴더에 저장됩니다. 학번·이름은 처음 한 번만 묻고, 비워 두면 이름 없이 저장됩니다.</li>'+
     '</ul>'+
     '<h3>단축키</h3>'+
@@ -4475,13 +4814,13 @@ function openHelp(){
     '<h3>저장된 정보</h3>'+
     '<ul>'+
       '<li>이 기기에 저장 — 테마 선택, 힘 화살표·전하 표시 설정'+(S.carry?', 학번·이름, 답안·잠금·힌트·예측 기록':'')+'</li>'+
-      '<li>이 브라우저 세션에만 저장 — 처음 답안, 다시 쓴 답안, 잠금 기록, 힌트 열람 기록, 예측 기록, 학번·이름</li>'+
+      '<li>이 브라우저 세션에만 저장 — 처음 답안, 다시 쓴 답안, 잠금 기록, 힌트 열람 기록, 예측 기록, 관찰 기록, 학번·이름</li>'+
       '<li>서버로 전송되는 정보는 없습니다.</li>'+
     '</ul>'+
     '<div style="margin-top:14px"><button class="btn ghost" id="wipeAll" style="color:var(--bad)">모든 데이터 초기화</button></div>'+
     '<h3>만든 곳</h3>'+
     '<ul><li>🧪 송쌤과학 (Song Ssaem Science) · ⓒ 2026 송세호 | 아주중학교<br>'+
-      '⚠ 무단 복제·상업적 이용 금지</li></ul>'+
+      '⚠ 무단 복제·상업적 이용 금지<br><span class="ver">가상실험실 버전 '+APP_VERSION+' · '+APP_DATE+'</span></li></ul>'+
     CH_LINKS+
   '</div>';
   $('#wipeAll').addEventListener('click',()=>{
@@ -4491,7 +4830,7 @@ function openHelp(){
       '<ul style="font-size:13px;color:var(--text-2);line-height:1.7;padding-left:18px">'+
       '<li>처음 쓴 답안 · <b>모범 답안을 보고 다시 쓴 답안</b></li>'+
       '<li>모범 답안 <b>잠금 기록</b> — 초기화하면 잠금도 함께 풀립니다</li>'+
-      '<li>힌트 열람 기록 · 예측 기록</li><li>학번 · 이름</li>'+
+      '<li>힌트 열람 기록 · 예측 기록 · 관찰 기록</li><li>학번 · 이름</li>'+
       '<li>힘 화살표 · 전하 표시 설정</li></ul>'+
       '<p style="font-size:12px;color:var(--text-3);line-height:1.6;margin-top:8px">'+
       '테마(다크·라이트) 선택은 다른 실험실과 함께 쓰는 기기 설정이라 그대로 남겨 둡니다.</p>';
@@ -4501,7 +4840,7 @@ function openHelp(){
     $('#wNo').addEventListener('click',closeTop);
     $('#wYes').addEventListener('click',()=>{
       LS.wipe(); ANS=[]; REV=[]; LOCK=[]; HINT=[];
-      S.sid=''; S.name=''; S.carry=false; S.poeLog=[]; S.poeAsked={}; S.poeCount=0;
+      S.sid=''; S.name=''; S.carry=false; S.poeLog=[]; S.poeAsked={}; S.poeCount=0; S.obs=[]; trial=null; renderObs();
       LS.sid=''; LS.carry=false;
       S.showForce=true; S.showCharge=true;
       $('#tglForce').setAttribute('aria-pressed','true');
@@ -4555,6 +4894,7 @@ function restore(){
   LOCK=LS.read('locks',[])||[];
   HINT=LS.read('hints',[])||[];
   S.poeLog=LS.read('poe',[])||[];
+  S.obs=(LS.read('obs',[])||[]).filter(r=>r&&r.key);
   const idrec=LS.read('sid',null);
   if(idrec){ S.sid=idrec.sid||''; S.name=idrec.name||''; LS.sid=S.sid; }
   S.carry=!!LS.read('carry',false); LS.carry=S.carry;
@@ -4578,6 +4918,7 @@ function restore(){
         ANS=LS.read('answers',[])||[]; REV=LS.read('revisions',[])||[];
         LOCK=LS.read('locks',[])||[];  HINT=LS.read('hints',[])||[];
         S.poeLog=LS.read('poe',[])||[];
+        S.obs=(LS.read('obs',[])||[]).filter(r=>r&&r.key); renderObs();
         const r=LS.read('sid',null); if(r){ S.sid=r.sid||''; S.name=r.name||''; }
         renderQuiz(); closeTop();
         toast('지난 기록을 불러왔어요.');
@@ -4632,7 +4973,7 @@ function renderLesson(mode,p){
     set(p.delta?'전자 이동 · 전체 전하 보존':'이 모형의 대전 포화',
         p.delta?objName(p.donor)+' → '+objName(p.recv)+' · 전자가 이동했어요.':'이 모형에서는 더 문질러도 대전되는 정도가 늘지 않아요.',
         '반복해서 문지르면 대전되는 정도가 커질 수 있지만, 무한히 증가하지는 않아요. 전하 기호 수는 설명용입니다.',
-        Math.min(100,p.want/p.nmax*100));
+        Math.max(0,Math.min(100,p.want/p.nmax*100)));
     return;
   }
   if(mode==='rubbing'){
@@ -4860,7 +5201,17 @@ function startNeutralize(key,pt){
     const prog=Math.min(1,(now-touch.t0)/touch.ms);
     const moved=Math.min(Math.abs(q0),Math.floor(prog*Math.abs(q0)+1e-6));
     const qNow=q0-sg*moved;
-    if(S.q[key]!==qNow){ S.q[key]=qNow; S.groundCharge=g0+sg*moved; chgSig=''; refreshStill(); renderShelfTags(); }
+    if(S.q[key]!==qNow){
+      /* 한 개씩 : (−)면 물체의 전자가 손끝으로, (+)면 손끝에서 전자가 짝 잃은 원자핵으로 */
+      const n=Math.abs(S.q[key]-qNow), list=[];
+      for(let j=0;j<n;j++){
+        if(sg<0){ const E=CH.N-S.q[key]-chPend[key]-j; list.push({from:{k:key,slot:chSlot(key,E)},to:{hand:true},dur:360}); }
+        else{ const E=CH.N-S.q[key]-chPend[key]+j+1; list.push({from:{hand:true},to:{k:key,slot:chSlot(key,E)},dur:360}); }
+      }
+      S.q[key]=qNow; S.groundCharge=g0+sg*moved;
+      chAddHops(list);                           /* 들어오는 전자는 도착할 때 짝을 채운다 (chPend) */
+      chgSig=''; refreshStill(); renderShelfTags();
+    }
     drawGroundFlow(prog,q0);
     $('#chargeMeter').style.width=((1-prog)*100)+'%';
     if(prog<1){ touch.frame=requestAnimationFrame(tick); return; }
@@ -4977,6 +5328,7 @@ function moveMaterial(p){
     if(d.snap!==snap.key){
       d.snap=snap.key; d.dist=0; d.stroke=0; d.dir=0; d.rev=0; d.lastX=x; d.v=0;
       if(S.rubTarget!==snap.key) $('#segTarget [data-target="'+snap.key+'"]').click();
+      rubPlan=makeRubPlan();
       renderLesson('rubbing-manual');
     }
     const dx=x-d.lastX, dir=Math.sign(dx);
@@ -4987,9 +5339,12 @@ function moveMaterial(p){
     d.lastX=x; d.v=d.v*.5+clamp(dx/3,-1,1)*.5;
     manualRub={x,cy:snap.y,cloY:y,v:d.v,phase:d.dist/34};
     $('#chargeMeter').style.width=Math.min(100,d.dist/RUB_STROKE*100)+'%';
+    /* 문지르는 동안 닿은 자리에서 전자가 한 개씩 건너간다 — 한 번의 문지르기(왕복)가 끝나면 기록한다 */
+    if(rubPlan && rubPlan.c===k) giveElectrons(Math.min(.999,d.dist/RUB_STROKE));
     if(d.dist>=RUB_STROKE && d.rev>=1){
-      rubPlan=makeRubPlan(); giveElectrons(1); finishRub(); d.rubbed=true;
-      d.dist=0; d.rev=0; renderShelfTags(true);
+      if(!rubPlan||rubPlan.c!==k) rubPlan=makeRubPlan();
+      giveElectrons(1); finishRub(); d.rubbed=true;
+      d.dist=0; d.rev=0; rubPlan=makeRubPlan(); renderShelfTags(true);
     }
     /* 손을 멈추면 불꽃·전자 흐름도 멎는다 */
     clearTimeout(rubIdle);
@@ -5139,6 +5494,7 @@ function init(){
   renderQuiz();
   renderAtom();
   renderRubCount();
+  renderObs();
   refreshStill();
 
   /* 좁은 화면에서는 대전열을 접은 상태로 시작한다 — 장면을 덮지 않게 */

@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<!-- 송쌤과학 가상실험실 · 마찰한 두 물체에 작용하는 힘 관찰하기 · v9 (2026-10-02)
+<!-- 송쌤과학 가상실험실 · 마찰한 두 물체에 작용하는 힘 관찰하기 · v10 (2026-10-03)
+     v9 → v10 : 탐구 질문 모범 답안 간결화(질문·힌트·순서는 그대로),
+                학습 리포트 파일명을 주제_학번_이름_YYYY-MM-DD로(예: 마찰한두물체에작용하는힘_20315_김민수_2026-10-03.pdf)
      v8 → v9 : 맨손(검지) 손톱 제거 — 주먹이 엄지쪽 옆모습인데 손톱을 정면 타원으로 그려 손가락이 90° 비틀린 듯 보이던 것을
                손톱을 그리지 않는 쪽으로 정리(옆에서는 손톱이 보이지 않는다)
      v6 → v7 : 과학 검수(정전기 유도를 분극 모형으로 — 가까운 끝 반대 부호·먼 끝 같은 부호, 예측에 '움직이지 않는다' 추가),
@@ -20,7 +22,7 @@
 <meta property="og:title" content="송쌤과학 가상실험실 | 마찰한 두 물체에 작용하는 힘 관찰하기">
 <meta property="og:description" content="중학교 과학 [9과14-01] 침핀 받침대 위에서 도는 빨대로 마찰한 두 물체 사이의 전기력을 관찰하고, 전자의 이동과 대전열로 설명하는 가상실험실">
 <meta property="og:type" content="website">
-<meta name="version" content="v9 (2026-10-02)">
+<meta name="version" content="v10 (2026-10-03)">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='22' y='46' width='20' height='13' rx='2' fill='%238C5A30'/%3E%3Cpath d='M32 47V27M9 27h46' stroke='%23E0A03A' stroke-width='6' stroke-linecap='round'/%3E%3Ccircle cx='32' cy='23' r='5' fill='%232E6FD0'/%3E%3C/svg%3E">
 <!-- 서체 : Pretendard Variable 공식 배포(orioncactus/pretendard · 고정 버전)의 dynamic subset.
      받지 못해도 --font-ui의 시스템 한글 서체로 그대로 동작한다 (§6.2 · §14) -->
@@ -1584,7 +1586,7 @@ function kill(key){
 }
 
 /* ---------- 1. 저장 : 기기 설정 / 학습 기록 분리 (§11) ---------- */
-const APP_VERSION='v9', APP_DATE='2026-10-02';   /* 파일 머리의 주석·meta와 같이 올린다 */
+const APP_VERSION='v10', APP_DATE='2026-10-03';   /* 파일 머리의 주석·meta와 같이 올린다 */
 const PFX='ssv-fric-';
 const LS={
   carry:false, sid:'',
@@ -4082,17 +4084,17 @@ const QS=[
   {
     q:'털가죽으로 문지른 빨대 ㉡을 빨대 ㉠의 끝에 가까이 가져갔을 때, 빨대 ㉠은 어떻게 움직였는지 그 까닭과 함께 설명해 보세요.',
     hint:'<b>1단계</b>에서 문지를 물체를 털가죽으로 둔 채, 문지를 빨대를 <b>빨대 ㉠</b>·<b>빨대 ㉡</b>으로 바꿔 가며 각각 문질러 보세요. 그다음 <b>2단계</b>에서 손에 든 물체를 빨대 ㉡으로 고르고 빨대 ㉠의 끝으로 가까이 가져가면서, 두 빨대 옆에 적힌 전하 표시와 계기의 <b>전기력</b> 칸을 함께 보세요.',
-    model:'빨대 ㉠은 빨대 ㉡에서 <mark>멀어지는 쪽으로 밀려 나갔어요</mark>. 털가죽으로 문지른 두 빨대는 <mark>모두 (−)전하</mark>를 띠는데, <mark>같은 종류의 전하</mark>를 띤 두 물체 사이에는 서로 <mark>밀어내는 방향</mark>으로 전기력이 작용하기 때문이에요.'
+    model:'빨대 ㉠은 빨대 ㉡에서 <mark>멀어지는 쪽으로 밀려났어요</mark>. 털가죽으로 문지른 두 빨대는 <mark>모두 (−)전하</mark>를 띠고, <mark>같은 종류의 전하</mark>를 띤 두 물체 사이에는 <mark>밀어내는 전기력</mark>이 작용하기 때문이에요.'
   },
   {
     q:'빨대 ㉠을 문지른 털가죽을 빨대 ㉠에 가까이 가져갔을 때는 어떻게 움직였는지, 빨대 ㉡을 가져갔을 때와 결과가 달라진 까닭을 설명해 보세요.',
     hint:'<b>2단계</b>에서 <b>손에 든 물체</b>를 털가죽으로 바꾸고 다시 가까이 가져가 보세요. 실험 조작 칸의 <b>대전열 막대</b>에서 전자가 어느 물체에서 어느 물체로 옮겨 가는지 확인하면, 두 물체가 각각 어떤 전하를 띠는지 알 수 있어요.',
-    model:'빨대 ㉠은 털가죽 쪽으로 <mark>끌려왔어요</mark>. 빨대를 털가죽으로 문지를 때 전자는 <mark>털가죽에서 빨대로</mark> 이동하므로, 전자를 얻은 빨대는 (−)전하를 띠고 전자를 잃은 털가죽은 (+)전하를 띠어요. <mark>서로 다른 종류의 전하</mark>를 띤 두 물체 사이에는 <mark>끌어당기는 방향</mark>으로 전기력이 작용하기 때문에, 두 빨대를 가까이 했을 때와 반대 결과가 나타나요.'
+    model:'빨대 ㉠은 털가죽 쪽으로 <mark>끌려왔어요</mark>. 털가죽으로 빨대 ㉠을 문지를 때 전자가 <mark>털가죽에서 빨대 ㉠으로</mark> 이동해서 털가죽은 (+)전하를, 빨대 ㉠은 (−)전하를 띠어요. 빨대 ㉡과 빨대 ㉠은 같은 종류의 전하를 띠어 밀어내는 전기력이, 털가죽과 빨대 ㉠은 <mark>서로 다른 종류의 전하</mark>를 띠어 <mark>끌어당기는 전기력</mark>이 작용하기 때문이에요.'
   },
   {
     q:'털가죽으로 빨대를 문지르면 두 물체가 어떻게 전기를 띠게 되는지, 전자의 이동과 전하량의 합을 함께 들어 설명해 보세요.',
     hint:'<b>전자의 이동</b> 탭의 <b>① 문지를 때</b>에서 털가죽을 끌어 빨대를 직접 문질러 보며 <b>마찰 전</b> → <b>마찰 중</b> → <b>마찰 후</b>를 차례로 보고, 표의 <b>두 물체의 합</b> 줄과 실험대 계기의 <b>전체 전하량 합 (지구 포함)</b> 칸이 계속 0인지 확인해 보세요.',
-    model:'털가죽에 있던 <mark>전자가 빨대로 이동</mark>해요. 전자를 잃은 털가죽은 원자핵의 (+)전하량이 전자의 (−)전하량보다 많아져 <mark>(+)전하</mark>를 띠고, 전자를 얻은 빨대는 전자의 (−)전하량이 원자핵의 (+)전하량보다 많아져 <mark>(−)전하</mark>를 띠어요. 이때 <mark>원자핵은 이동하지 않고 전자만</mark> 옮겨 가며, 한쪽이 잃은 전하량과 다른 쪽이 얻은 전하량이 같으므로 <mark>두 물체의 전하량을 더하면 마찰 전과 똑같이 0</mark>이에요.'
+    model:'<mark>전자가 털가죽에서 빨대로 이동</mark>해서 털가죽은 <mark>(+)전하</mark>를, 빨대는 <mark>(−)전하</mark>를 띠게 돼요. 원자핵은 이동하지 않으므로 전자를 잃은 털가죽은 (+)전하량이 (−)전하량보다 많아지고, 전자를 얻은 빨대는 (−)전하량이 (+)전하량보다 많아지기 때문이에요. 털가죽이 잃은 전자만큼 빨대가 얻으므로 <mark>두 물체의 전하량을 더하면 마찰 전과 같이 0</mark>이에요.'
   }
 ];
 let ANS=[], REV=[], LOCK=[], HINT=[];
@@ -4747,10 +4749,20 @@ function buildPrint(opt){
      '📺 YouTube: @songsamscience  📷 Instagram: @songsamscience<br>'+
      '⚠ 무단 복제·상업적 이용 금지 · 가상실험실 '+APP_VERSION+' ('+APP_DATE+')</div>';
   $('#printview').innerHTML=h;
-  const t=document.title;
-  document.title='마찰한두물체에작용하는힘_리포트'+(S.sid?'_'+S.sid:'')+(S.name?'_'+S.name:'');
+  /* 'PDF로 저장'은 document.title을 파일 이름으로 쓴다 → 주제_학번_이름_YYYY-MM-DD.pdf (날짜는 인쇄 버튼을 누른 순간) */
+  const t=PRINT_BASE_TITLE;
+  document.title=reportFileName(d);
   const back=()=>{ document.title=t; window.removeEventListener('afterprint',back); };
   window.addEventListener('afterprint',back);
+}
+/* 리포트 파일 이름 : 학번·이름의 \ / : * ? " < > | · 공백 · 제어 문자는 지운다(구분자 '_'가 깨지지 않게 바꾸지 않고 지움).
+   날짜는 기기 로컬 날짜 — toISOString()은 UTC라 한국 시간 00~09시에 전날이 되므로 쓰지 않는다. */
+const PRINT_BASE_TITLE=document.title;   /* 인쇄가 연달아 눌려도 원래 제목으로 되돌린다 */
+const fileSafe=s=>String(s||'').replace(/[\\/:*?"<>|\s\x00-\x1f\x7f-\x9f]+/g,'');
+function reportFileName(d){
+  const p2=n=>String(n).padStart(2,'0');
+  const ymd=d.getFullYear()+'-'+p2(d.getMonth()+1)+'-'+p2(d.getDate());
+  return ['마찰한두물체에작용하는힘',fileSafe(S.sid),fileSafe(S.name),ymd].filter(Boolean).join('_');
 }
 
 /* ==========================================================================

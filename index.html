@@ -863,7 +863,7 @@ details.more p{margin-top:6px}
 @media (max-width:1240px){ .subject{display:none} }
 @media (max-width:1180px){ :root{--rail-w:264px} }
 @media (max-width:1050px){ .bword{display:none} .top{gap:12px} }
-@media (max-width:900px){ :root{--rail-w:252px;--stage-gap:12px} }
+@media (max-width:900px){ :root{--rail-w:252px;--stage-gap:12px} .stepb{padding:0 5px;gap:4px} }
 
 @media (max-width:760px){
   :root{--h-top:96px;--stage-gap:12px}
@@ -3567,7 +3567,7 @@ function exPanel(){
   let kick, say;
   if(ph===1){
     kick='① 마찰 전';
-    say=eun(cn)+' 빨대와 마찬가지로 <b>원자핵(+)과 전자(−)의 개수가 같아 중성</b>이에요. '+
+    say=eun(cn)+' 빨대와 마찬가지로 <b>(+)전하량과 (−)전하량이 같아 중성</b>이에요. '+
         cn+jos(cn,'을','를')+' 끌어 빨대 위에 올린 뒤 좌우로 문질러 보세요.';
   }else if(ph===2){
     kick='② 마찰 중';
@@ -3824,6 +3824,10 @@ function exBuild(){
 
   /* ① 천 끌기 */
   const svg=$('#exSvg');
+  /* 터치 : 그림(svg)은 세로 스크롤(pan-y)을 허용하고, svg 안쪽 요소의 touch-action:none은 크로미움에서 적용되지 않는다.
+     그래서 끌 물체를 누른 터치는 스크롤로 넘어가지 않게 touchstart에서 막는다 (배경을 쓸면 그대로 스크롤된다) */
+  const noPan=e=>{ if(e.target.closest&&e.target.closest('.exCloth,.e2H')) e.preventDefault(); };
+  svg.addEventListener('touchstart',noPan,{passive:false});
   const pt=(s,e)=>{ const p=s.createSVGPoint(); p.x=e.clientX; p.y=e.clientY; const m=s.getScreenCTM(); return m?p.matrixTransform(m.inverse()):null; };
   svg.addEventListener('pointerdown',e=>{
     if(!EX||!e.target.closest('.exCloth')) return;
@@ -3856,6 +3860,7 @@ function exBuild(){
 
   /* ② 가까이 가져가기 */
   const s2=$('#ex2Svg');
+  s2.addEventListener('touchstart',noPan,{passive:false});
   s2.addEventListener('pointerdown',e=>{
     if(!e.target.closest('.e2H')) return;
     const p=pt(s2,e); if(!p) return;
@@ -3954,7 +3959,7 @@ T_GLYPH(128,88,-1,1.9)+T_GLYPH(153,88,-1,1.9)+T_GLYPH(178,88,-1,1.9)+
 T_ARROW(212,52,212,84,2.2,'var(--neg)')+T_TXT(226,71,'전자',{a:'start',s:10.5,c:'var(--neg)'})+
 T_TXT(60,44,'털가죽',{s:11.5,c:'var(--text-1)'})+T_TXT(60,58,'(+)전하',{c:'var(--pos)'})+
 T_TXT(60,100,'빨대',{s:11.5,c:'var(--text-1)'})+T_TXT(60,114,'(−)전하',{c:'var(--neg)'})+
-T_TXT(240,114,'전자를 잃으면 (+) · 얻으면 (−)',{s:10,c:'var(--text-3)'})+
+T_TXT(296,114,'전자를 잃으면 (+) · 얻으면 (−)',{a:'end',s:10,c:'var(--text-3)'})+
 '</svg>';
 
 function pairSVG(x,s1,s2,dir,label){
@@ -4455,6 +4460,7 @@ function setLabTip(st,sx,sy){
 function labTip(st){ return withLab(st,()=>heldNear()); }
 function bindForceDrag(st){
   const svg=st.svg; let d=null;
+  svg.addEventListener('touchstart',e=>{ if(e.target.closest&&e.target.closest('.qB')) e.preventDefault(); },{passive:false});   /* 세로로 끌어도 스크롤로 넘어가지 않게 (① 천 끌기와 같은 까닭) */
   const pt=e=>{ const p=svg.createSVGPoint(); p.x=e.clientX; p.y=e.clientY; const m=svg.getScreenCTM(); return m?p.matrixTransform(m.inverse()):null; };
   svg.addEventListener('pointerdown',e=>{
     const g=e.target.closest('.qB'); if(!g) return;
@@ -4534,7 +4540,7 @@ function renderRubLab(st,svg,fx,hop){
     '<tr><th scope="row">털가죽</th><td>'+QLAB_ATOMS+'</td><td>'+(QLAB_ATOMS-n)+'</td><td>'+cell(n)+'</td></tr>'+
     '<tr><th scope="row">빨대</th><td>'+QLAB_ATOMS+'</td><td>'+(QLAB_ATOMS+n)+'</td><td>'+cell(-n)+'</td></tr>'+
     '<tr class="sum"><th scope="row">두 물체의 합</th><td>'+(QLAB_ATOMS*2)+'</td><td>'+(QLAB_ATOMS*2)+'</td><td><b>0</b></td></tr>';
-  st.out.innerHTML = n===0 ? '처음에는 두 물체 모두 <b>원자핵의 (+)와 전자의 (−) 개수가 같아</b> 중성이에요.'
+  st.out.innerHTML = n===0 ? '처음에는 두 물체 모두 <b>(+)전하량과 (−)전하량이 같아</b> 중성이에요.'
     : n>=QLAB_NMAX ? '전자 <b>'+n+'개</b>가 털가죽 → 빨대로 옮겨 갔어요. 이 모형에서는 더 문질러도 늘지 않아요.'
     : '전자 <b>'+n+'개</b>가 털가죽 → 빨대로 옮겨 갔어요.';
 }
@@ -4947,7 +4953,7 @@ $('#btnCam').addEventListener('click',captureBench);
    19. 도움말 (§11·§15)
    ========================================================================== */
 function openHelp(){
-  $('#helpBody').innerHTML='<section class="hsec"><h3>직접 집어 실험하기</h3><p><b>집기</b> — 선반의 털가죽·면장갑·비닐 랩을 누르면 손이 주먹을 쥐어 집어 들어요. 빨대 가까이 가져가면 천이 빨대 윗면에 붙고, 붙은 채로 좌우로 오가면 문질러져요. 놓으면 선반으로 돌아가요.</p><p><b>가까이 가져가기</b> — 2단계에서는 손에 든 빨대 ㉡이나 천을 끌어 옮겨요. 놓아도 손이 계속 쥐고 있어요. 바닥에 눕힌 빨대 ㉡을 누르면 집어 들어요.</p><p><b>맨손 접지</b> — 검지를 편 손을 끌어 손끝을 물체에 대면, 대고 있는 동안 전하가 하나씩 지구로 빠져나가요. 손을 한 번 눌러 고른 뒤 물체를 눌러도 손이 알아서 손끝을 대고 돌아와요. Esc로 취소해요.</p><p>왼쪽 <b>실험 조작</b> 칸(휴대폰에서는 장면 아래)의 머리에 있는 ‹ 단추로 접거나 펼칠 수 있어요. 키보드: 재료·맨손 고르기 Enter, 손에 든 물체 옮기기 방향키, 자동 문지르기 R.</p></section>'+
+  $('#helpBody').innerHTML='<section class="hsec"><h3>직접 집어 실험하기</h3><p><b>집기</b> — 선반의 털가죽·면장갑·비닐 랩을 누르면 손이 주먹을 쥐어 집어 들어요. 빨대 가까이 가져가면 천이 빨대 윗면에 붙고, 붙은 채로 좌우로 오가면 문질러져요. 놓으면 선반으로 돌아가요.</p><p><b>가까이 가져가기</b> — 2단계에서는 손에 든 빨대 ㉡이나 천을 끌어 옮겨요. 놓아도 손이 계속 쥐고 있어요. 바닥에 눕힌 빨대 ㉡을 누르면 집어 들어요.</p><p><b>맨손 접지</b> — 검지를 편 손을 끌어 손끝을 물체에 대면, 대고 있는 동안 전자가 하나씩 손을 거쳐 지구로(또는 지구에서) 옮겨 가 중성이 돼요. 손을 한 번 눌러 고른 뒤 물체를 눌러도 손이 알아서 손끝을 대고 돌아와요. Esc로 취소해요.</p><p>왼쪽 <b>실험 조작</b> 칸(휴대폰에서는 장면 아래)의 머리에 있는 ‹ 단추로 접거나 펼칠 수 있어요. 키보드: 재료·맨손 고르기 Enter, 손에 든 물체 옮기기 방향키, 자동 문지르기 R.</p></section>'+
   '<div class="helplist">'+
     '<h3>이렇게 해 보세요</h3>'+
     '<ul>'+
@@ -5132,7 +5138,7 @@ function renderLesson(mode,p){
     return;
   }
   if(mode==='bare-drag'){
-    set('맨손으로 접지하기','검지 끝을 빨대나 천에 대 보세요.','손끝이 물체에 닿으면 그 자리에 붙고, 대고 있는 동안 전하가 빠져나가요.');
+    set('맨손으로 접지하기','검지 끝을 빨대나 천에 대 보세요.','손끝이 물체에 닿으면 그 자리에 붙고, 대고 있는 동안 전하가 하나씩 줄어요.');
     return;
   }
   if(mode==='carry'){
@@ -5158,7 +5164,7 @@ function renderLesson(mode,p){
   if(S.step===1) set('01 · 문지르기','선반의 재료를 집어 빨대 위에서 좌우로 문질러 보세요.',
     '천을 빨대 가까이 가져가면 윗면에 붙고, 붙은 채로 좌우로 오가면 문질러져요. 문질러 보기 단추로도 할 수 있어요. 검지를 편 맨손을 대면 중성이 돼요.',0);
   else set('02 · 전기력 관찰','빨대 ㉡이나 천을 들어 빨대 ㉠ 끝에 가까이 가져가 보세요.',
-    '먼저 움직임을 예측하고 관찰해요. 끌어 옮기거나, 가까이 가져가기 단추나 화살표 키를 써도 돼요. 맨손을 대면 전하가 지구로 빠져나가요.',0);
+    '먼저 움직임을 예측하고 관찰해요. 끌어 옮기거나, 가까이 가져가기 단추나 화살표 키를 써도 돼요. 맨손을 대면 중성이 돼요.',0);
 }
 
 /* ==========================================================================
@@ -5272,7 +5278,7 @@ function rubStraws(){
 function buildBare(){
   L.touch=$('#l-touch');
   L.touch.innerHTML='<g id="pointWrap" filter="url(#handShade)"><g id="pointHand" data-material="bare" tabindex="0" role="button" '+
-    'aria-label="맨손(검지) — 끌어서 손끝을 물체에 대면 접지되어 전하가 지구로 빠져나가요. Enter로 고른 뒤 물체를 누르거나 물체에서 Enter를 눌러도 돼요.">'+
+    'aria-label="맨손(검지) — 끌어서 손끝을 물체에 대면 접지되어 전자가 지구로(또는 지구에서) 옮겨 가요. Enter로 고른 뒤 물체를 누르거나 물체에서 Enter를 눌러도 돼요.">'+
     '<rect class="hit" x="-30" y="-230" width="960" height="760" rx="80"/><use class="point-art" href="#hand-point"/></g></g>'+
     '<g id="groundFlow" style="display:none"></g>';
 }
